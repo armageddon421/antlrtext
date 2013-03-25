@@ -14,9 +14,9 @@ public class ExprParser extends Parser {
 	protected static final PredictionContextCache _sharedContextCache =
 		new PredictionContextCache();
 	public static final int
-		T__2=1, T__1=2, T__0=3, ZAHL=4, WHITE=5;
+		T__2=1, T__1=2, T__0=3, ZAHL=4, WHITE=5, COMMENT=6;
 	public static final String[] tokenNames = {
-		"<INVALID>", "')'", "'-'", "'('", "ZAHL", "WHITE"
+		"<INVALID>", "')'", "'-'", "'('", "ZAHL", "WHITE", "COMMENT"
 	};
 	public static final int
 		RULE_prog = 0, RULE_ausdruck = 1;
@@ -218,7 +218,7 @@ public class ExprParser extends Parser {
 	}
 
 	public static final String _serializedATN =
-		"\2\3\7\31\4\2\t\2\4\3\t\3\3\2\3\2\3\3\3\3\3\3\3\3\3\3\3\3\5\3\17\n\3\3"+
+		"\2\3\b\31\4\2\t\2\4\3\t\3\3\2\3\2\3\3\3\3\3\3\3\3\3\3\3\3\5\3\17\n\3\3"+
 		"\3\3\3\3\3\7\3\24\n\3\f\3\16\3\27\13\3\3\3\2\4\2\4\2\2\30\2\6\3\2\2\2"+
 		"\4\16\3\2\2\2\6\7\5\4\3\2\7\3\3\2\2\2\b\t\b\3\1\2\t\n\7\5\2\2\n\13\5\4"+
 		"\3\2\13\f\7\3\2\2\f\17\3\2\2\2\r\17\7\6\2\2\16\b\3\2\2\2\16\r\3\2\2\2"+

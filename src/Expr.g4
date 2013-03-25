@@ -7,3 +7,4 @@ ausdruck:
 
 ZAHL: [0-9]+ ;
 WHITE: [\r\n\t]+ -> skip ;
+COMMENT: '//'+.*[\r\n]+ -> skip ;
