@@ -1,6 +1,7 @@
 grammar Expr;
 prog:	ausdruck;
-ausdruck:	links=ausdruck minus='-' rechts=ausdruck  #Subtraktion
+ausdruck:	
+	links=ausdruck minus='-' plus='+' rechts=ausdruck  #Subtraktion
 |	klammerAuf='(' inKlammer=ausdruck klammerZu=')' #Klammer
 |	zahl=ZAHL #Zahl;
 
