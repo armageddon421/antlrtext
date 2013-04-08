@@ -3,11 +3,15 @@ import org.antlr.v4.runtime.tree.*;
 import org.antlr.v4.runtime.Token;
 
 public interface ExprVisitor<T> extends ParseTreeVisitor<T> {
-	T visitProg(ExprParser.ProgContext ctx);
+	T visitSum(ExprParser.SumContext ctx);
 
-	T visitSubtraktion(ExprParser.SubtraktionContext ctx);
+	T visitSatzbau(ExprParser.SatzbauContext ctx);
 
-	T visitKlammer(ExprParser.KlammerContext ctx);
+	T visitStart(ExprParser.StartContext ctx);
 
-	T visitZahl(ExprParser.ZahlContext ctx);
+	T visitVariableDefinition(ExprParser.VariableDefinitionContext ctx);
+
+	T visitNameList(ExprParser.NameListContext ctx);
+
+	T visitVariableDefinitionMultiple(ExprParser.VariableDefinitionMultipleContext ctx);
 }

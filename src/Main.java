@@ -15,7 +15,7 @@ public class Main {
 		
 		ExprParser parser = new ExprParser(tokens);
 		
-		ParseTree tree = parser.prog();
+		ParseTree tree = parser.start();
 		
 		new MyExprVisitor().visit(tree);
 		

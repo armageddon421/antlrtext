@@ -1,10 +1,35 @@
 grammar Expr;
-prog:	ausdruck;
-ausdruck:	
-	links=ausdruck (minus='minus' | plus='plus') rechts=ausdruck  #Subtraktion
-|	klammerAuf='(' inKlammer=ausdruck klammerZu=')' #Klammer
-|	zahl=ZAHL #Zahl;
+start:	satzbau;
 
-ZAHL: [0-9]+ ;
-WHITE: [\r\n\t]+ -> skip ;
+satzbau: 	satz satzbau
+		|	satz ;
+
+satz: 		name=NAME ' ist zählbar' end=END #VariableDefinition
+		|	names=nameList ' sind zählbar' end=END #VariableDefinitionMultiple
+		
+		|	name=NAME ' ist die Summe von ' nameList end=END #Sum ;
+
+
+
+nameList: 	name1=NAME (', ' namen=NAME)* ' und ' name2 = NAME ;
+
+
+
+
+//ausdruck:	
+//	links=ausdruck (minus='minus' | plus='plus') rechts=ausdruck  #Subtraktion
+//|	klammerAuf='(' inKlammer=ausdruck klammerZu=')' #Klammer
+//|	zahl=ZAHL #Zahl;
+
+
+
+NAME: [A-Za-z]+[0-9]* ;
+END: ['.''!''?'][\r\n]+;
+SPACE: [' '] ;
+
+NUMBER: [0-9]+ ;
+
+
+SKIP: [\t]+ -> skip ;
 COMMENT: '//'+.*?[\r\n]+ -> skip ;
+
