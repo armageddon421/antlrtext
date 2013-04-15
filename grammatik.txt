@@ -1,16 +1,16 @@
-// Alles was mit "//" oder "=" beginnt, ist keine gültige Grammatik.
+// Alles was mit "//" oder "=" beginnt, ist keine gï¿½ltige Grammatik.
 
 ===== Deklarationen =====
 
 === Integer ===
 
-Alf ist zählbar.
-Alf und Sebastian sind zählbar.
-Alf, Sebastian und Aiko sind zählbar.
+Alf ist zï¿½hlbar.
+Alf und Sebastian sind zï¿½hlbar.
+Alf, Sebastian und Aiko sind zï¿½hlbar.
 
 === Float ===
 
-Alf ist nicht zählbar
+Alf ist nicht zï¿½hlbar
 
 === Text bzw. Strings ===
 
@@ -43,7 +43,8 @@ Alf ist die Summe der Multiplikation von Alf und Aiko und der Multiplikation von
 Alf ist der Quotiont aus Sebastian und Aiko.
 Alf ist die Division von Sebastian durch Aiko.
 
-Alf ist die Summe des Quotient aus Sebastian und Aiko und der Multiplukation von Sandra und Nicole.
+Alf ist die Summe des Quotient aus Sebastian und Aiko 
+und der Multiplikation von Sandra und Nicole.
 
 === Modulo ===
 
@@ -53,13 +54,13 @@ Alf ist der Rest der Divison von Sandra durch Aiko.
 ===== Verzweigungen =====
 
 //..., wenn Alf gleich 0 ist.
-//..., wenn Alf größer oder gleich Nicole ist.
+//..., wenn Alf grï¿½ï¿½er oder gleich Nicole ist.
 
 //Beispiel
 
 Alf ist der Quotiont aus Sebastian und Aiko, wenn alf gleich 0 ist.
 
-Alf ist der Quotiont aus Sebastian und Aiko, wenn alf größer oder gleich 0 ist und alf kleiner oder gleich 10 ist.
+Alf ist der Quotiont aus Sebastian und Aiko, wenn alf grï¿½ï¿½er oder gleich 0 ist und alf kleiner oder gleich 10 ist.
 
 
 ===== Schleifen =====
@@ -68,14 +69,14 @@ Alf ist der Quotiont aus Sebastian und Aiko, wenn alf größer oder gleich 0 ist u
 
 === Schleifenkopf ===
 
-Markus zählt bis 5.
-Markus zählt bis Alf.
-Markus zählt von 10 bis 20.
-Markus zählt von Alf bis Aiko.
+Markus zï¿½hlt bis 5.
+Markus zï¿½hlt bis Alf.
+Markus zï¿½hlt von 10 bis 20.
+Markus zï¿½hlt von Alf bis Aiko.
 
 === Schleifenende ===
 
-Markus zählt weiter.
+Markus zï¿½hlt weiter.
 
 === Schleifenabbruch ===
 
@@ -86,17 +87,17 @@ Markus hat keine Lust mehr.
 
 === Schleifenkopf ===
 
-//Durch die Benamung der Schleife kann auch aus einer inneren Schleife heraus, eine äußere abgebrochen werden.
-//Auch while-schleifen zählen einen Zähler hoch, der über den Namen der Schleife ausgelesen werden kann.
-//Es gibt keine fußgesteuerte Schleife.
+//Durch die Benamung der Schleife kann auch aus einer inneren Schleife heraus, eine ï¿½uï¿½ere abgebrochen werden.
+//Auch while-schleifen zï¿½hlen einen Zï¿½hler hoch, der ï¿½ber den Namen der Schleife ausgelesen werden kann.
+//Es gibt keine fuï¿½gesteuerte Schleife.
 
-Markus zählt.	//Endlosschleife
-Markus zählt, bis Alf gleich 0 ist.
-Markus zählt, bis Alf gleich Nicole ist.
-Markus zählt, solange Alf gleich 0 ist.
-Markus zählt, solange Alf gleich Nicole ist.
-Markus zählt, solagee Alf kleiner als Nicole ist.
-Markus zählt, solange Alf größer oder gleich 0 ist.
+Markus zï¿½hlt.	//Endlosschleife
+Markus zï¿½hlt, bis Alf gleich 0 ist.
+Markus zï¿½hlt, bis Alf gleich Nicole ist.
+Markus zï¿½hlt, solange Alf gleich 0 ist.
+Markus zï¿½hlt, solange Alf gleich Nicole ist.
+Markus zï¿½hlt, solagee Alf kleiner als Nicole ist.
+Markus zï¿½hlt, solange Alf grï¿½ï¿½er oder gleich 0 ist.
 
 
 
@@ -106,24 +107,24 @@ Markus zählt, solange Alf größer oder gleich 0 ist.
 
 Potter ist ein Buch.
 
-Potter fragt nach der zählbaren Nicole.
-Potter fragt nach der zählbaren Nicole, der unzählbaren Sandra und dem sprechenden Alf.
+Potter fragt nach der zï¿½hlbaren Nicole.
+Potter fragt nach der zï¿½hlbaren Nicole, der unzï¿½hlbaren Sandra und dem sprechenden Alf.
 
 
-=== Rückgabewert ===
+=== Rï¿½ckgabewert ===
 
-Sebastian ist zählbar.
+Sebastian ist zï¿½hlbar.
 //Sebastian ist ...
 
-Potter endet mit dem zählbaren Sebastian. //Der Wert von Sebastian wird zurückgegeben, der Typ wird erzwungen.
+Potter endet mit dem zï¿½hlbaren Sebastian. //Der Wert von Sebastian wird zurï¿½ckgegeben, der Typ wird erzwungen.
 
 === Aufruf ===
 
-//Ohne Rückgabewert
+//Ohne Rï¿½ckgabewert
 Potter beginnt mit Nicole.
 Potter beginnt mit Nicole, Sandra und Alf.
 
-//Mit Rückgabewert
+//Mit Rï¿½ckgabewert
 
 Potter beginnt mit Nicole und endet mit Sebastian.
 //Sebastian hat jetzt den Typ, mit dem die Funktion definiert wurde. Wenn er schon existiert, muss er einen kompatiblen Typ haben.
@@ -132,14 +133,14 @@ Potter beginnt mit Nicole und endet mit Sebastian.
 
 === Eingabe ===
 
-Der Erzähler fragt nach Sebastian. 	//Sebastian muss schon deklariert sein.
+Der Erzï¿½hler fragt nach Sebastian. 	//Sebastian muss schon deklariert sein.
 
 === Ausgabe ===
 
-Der Erzähler sagt "Hallo.".
-Der Erzähler redet von Alf. 	//Der Wert von Alf wird ausgegeben.
-Der Erzähler blättert um.		//Newline?
-Der Erzähler macht eine Pause.	//Zwei Newlines?
+Der Erzï¿½hler sagt "Hallo.".
+Der Erzï¿½hler redet von Alf. 	//Der Wert von Alf wird ausgegeben.
+Der Erzï¿½hler blï¿½ttert um.		//Newline?
+Der Erzï¿½hler macht eine Pause.	//Zwei Newlines?
 
 
 
