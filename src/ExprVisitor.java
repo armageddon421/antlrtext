@@ -5,6 +5,8 @@ import org.antlr.v4.runtime.Token;
 public interface ExprVisitor<T> extends ParseTreeVisitor<T> {
 	T visitSum(ExprParser.SumContext ctx);
 
+	T visitMult(ExprParser.MultContext ctx);
+
 	T visitSatzbau(ExprParser.SatzbauContext ctx);
 
 	T visitStart(ExprParser.StartContext ctx);
