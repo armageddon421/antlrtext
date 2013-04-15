@@ -6,6 +6,8 @@ import org.antlr.v4.runtime.ParserRuleContext;
 public class ExprBaseVisitor<T> extends AbstractParseTreeVisitor<T> implements ExprVisitor<T> {
 	@Override public T visitSum(ExprParser.SumContext ctx) { return visitChildren(ctx); }
 
+	@Override public T visitMult(ExprParser.MultContext ctx) { return visitChildren(ctx); }
+
 	@Override public T visitSatzbau(ExprParser.SatzbauContext ctx) { return visitChildren(ctx); }
 
 	@Override public T visitStart(ExprParser.StartContext ctx) { return visitChildren(ctx); }
