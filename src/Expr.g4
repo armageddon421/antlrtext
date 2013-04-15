@@ -4,10 +4,11 @@ start:	satzbau;
 satzbau: 	satz satzbau
 		|	satz ;
 
-satz: 		name=NAME ' ist zählbar' end=END #VariableDefinition
-		|	names=nameList ' sind zählbar' end=END #VariableDefinitionMultiple
-		
-		|	name=NAME ' ist die Summe von ' nameList end=END #Sum ;
+satz: 		name=NAME ' ist zaehlbar' end=END #VariableDefinition
+		|	names=nameList ' sind zaehlbar' end=END #VariableDefinitionMultiple
+		|	name=NAME ' ist die Summe von ' nameList end=END #Sum 
+		|   name=NAME ' ist die Multiplikation von ' nameList end=END #Mult ; 
+
 
 
 
