@@ -4,8 +4,8 @@ public class MyExprVisitor<T> extends ExprBaseVisitor<T> {
 	public T visitVariableDefinition(final ExprParser.VariableDefinitionContext ctx) {
 		
 		String varName = ctx.name.getText();
-		
 		System.out.println(varName);
+	
 		
 		return null;
 	}
