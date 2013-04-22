@@ -63,11 +63,11 @@ Ende.
 
 ==== While-Schleife ====
 
-Schleife: Aiko kleiner Alf.
+Solange Aiko kleiner Alf.
 //code
 Schleifenende.
 
-Schleife: Alf groesser oder gleich Aiko.
+Solange Alf groesser oder gleich Aiko.
 //code
 Schleifenende.
 
@@ -78,7 +78,8 @@ Schleifenende.
 
 === Deklaration ===
 
-Funktion Deinemama: Integer Eins, Integer Zwei, Float Drei.
+
+Deinemama braucht Integer Eins, Integer Zwei, Float Drei.
 //Code
 Ergebnis: Integer Vier.
 
