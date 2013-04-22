@@ -6,13 +6,15 @@ satzbau: 	satz satzbau
 
 satz: 		name=NAME ' ist zaehlbar' end=END #VariableDefinition
 		|	names=nameList ' sind zaehlbar' end=END #VariableDefinitionMultiple
-		|	name=NAME ' ist die Summe von ' nameList end=END #Sum 
-		|   name=NAME ' ist das Produkt von ' nameList end=END #Mult
-		|   name=NAME ' ist die Differenz von ' nameList end=END #Diff
-		|	name=NAME ' ist der Quotient aus ' nameList end=END #Quot
-		|   name=NAME ' ist die Division von ' nameModu end=END #Divi
-		|   name=NAME ' ist die Summe des Quotienten aus ' nameList ' der Multiplikation von ' nameList end=END #QuoMul
-		|   name=NAME ' ist der Rest der Division von ' nameModu end=END #Modulo
+		|	name=NAME ' ist die Summe von ' name2=nameList end=END #Sum 
+		|   name=NAME ' ist das Produkt von ' name2=nameList end=END #Mult
+		|   name=NAME ' ist die Differenz von ' name2=nameList end=END #Diff
+		|	name=NAME ' ist der Quotient aus ' name2=nameList end=END #Quot
+		|   name=NAME ' ist die Division von ' name2=nameModu end=END #Divi
+		|   name=NAME ' ist der Rest der Division von ' name2=nameModu end=END #Modulo
+		
+//		|   name=NAME ' ist die Summe des Quotienten aus ' nameList ' der Multiplikation von ' nameList end=END #QuoMul
+
 		; 
 
 
