@@ -4,144 +4,115 @@
 
 === Integer ===
 
-Alf ist zï¿½hlbar.
-Alf und Sebastian sind zï¿½hlbar.
-Alf, Sebastian und Aiko sind zï¿½hlbar.
+Der Integer Alf ist 5.
 
 === Float ===
 
-Alf ist nicht zï¿½hlbar
+Die Float Alf ist 13,37.
 
-=== Text bzw. Strings ===
-
-Alf kann sprechen.
-
-=== Funktionen ===
-
-//Siehe Kapitel "Funktionen"
-
-Potter ist ein Buch.
 
 ===== Arithmetik =====
 
 === Summen und Differenzen ===
 
-Alf ist die Summe von Sebastian und Aiko.
-Alf ist die Summe von Sebastian, Aiko und Alf.
-Alf ist die Differenz von Sebastian und Aiko.
+Alf ist Sebastian plus Aiko.
+Alf Aiko minus Alf.
 
-Alf ist die Summe von Sebi, Sebastian, der Differenz zwischen Emil und Siegfried und der Differenz zwischen Aiko und Sandra.
+Alf ist Sebastian plus Aiko minus Nicole.
 
 === Multiplikation ===
 
-Alf ist die Multiplikation von Alf, Aiko und Sandra.
+Alf ist Aiko mal Sandra.
 
-Alf ist die Summe der Multiplikation von Alf und Aiko und der Multiplikation von Sandra und Nicole.
+Alf ist Alf mal 5 plus Nicole invertiert mal -3.
 
 === Division ===
 
-Alf ist der Quotiont aus Sebastian und Aiko.
-Alf ist die Division von Sebastian durch Aiko.
+Alf ist Sebastian durch Aiko.
+Alf ist Sebastian geteilt durch Aiko.
 
-Alf ist die Summe des Quotient aus Sebastian und Aiko 
-und der Multiplikation von Sandra und Nicole.
+Alf ist Aiko mal 4 durch 5.
 
 === Modulo ===
 
-Alf ist der Rest der Divison von Sandra durch Aiko.
+Alf ist Sandra modulo Aiko.
 
 
 ===== Verzweigungen =====
 
-//..., wenn Alf gleich 0 ist.
-//..., wenn Alf grï¿½ï¿½er oder gleich Nicole ist.
+Wenn Aiko.
+//code
+Ende.
 
-//Beispiel
+Wenn Aiko.
+//code
+Sonst.
+//code
+Ende.
 
-Alf ist der Quotiont aus Sebastian und Aiko, wenn alf gleich 0 ist.
-
-Alf ist der Quotiont aus Sebastian und Aiko, wenn alf grï¿½ï¿½er oder gleich 0 ist und alf kleiner oder gleich 10 ist.
+Wenn Aiko.
+//code
+Sonst wenn Sebastian.
+//code
+Sonst.
+//code
+Ende.
 
 
 ===== Schleifen =====
 
-==== For-Schleife ====
-
-=== Schleifenkopf ===
-
-Markus zï¿½hlt bis 5.
-Markus zï¿½hlt bis Alf.
-Markus zï¿½hlt von 10 bis 20.
-Markus zï¿½hlt von Alf bis Aiko.
-
-=== Schleifenende ===
-
-Markus zï¿½hlt weiter.
-
-=== Schleifenabbruch ===
-
-Markus hat keine Lust mehr.
-
-
 ==== While-Schleife ====
 
-=== Schleifenkopf ===
+Schleife: Aiko kleiner Alf.
+//code
+Schleifenende.
 
-//Durch die Benamung der Schleife kann auch aus einer inneren Schleife heraus, eine ï¿½uï¿½ere abgebrochen werden.
-//Auch while-schleifen zï¿½hlen einen Zï¿½hler hoch, der ï¿½ber den Namen der Schleife ausgelesen werden kann.
-//Es gibt keine fuï¿½gesteuerte Schleife.
+Schleife: Alf groesser oder gleich Aiko.
+//code
+Schleifenende.
 
-Markus zï¿½hlt.	//Endlosschleife
-Markus zï¿½hlt, bis Alf gleich 0 ist.
-Markus zï¿½hlt, bis Alf gleich Nicole ist.
-Markus zï¿½hlt, solange Alf gleich 0 ist.
-Markus zï¿½hlt, solange Alf gleich Nicole ist.
-Markus zï¿½hlt, solagee Alf kleiner als Nicole ist.
-Markus zï¿½hlt, solange Alf grï¿½ï¿½er oder gleich 0 ist.
-
+//Wird ausgeführt, bis Bedingung 0.
 
 
 ===== Funktionen =====
 
 === Deklaration ===
 
-Potter ist ein Buch.
+Funktion Deinemama: Integer Eins, Integer Zwei, Float Drei.
+//Code
+Ergebnis: Integer Vier.
 
-Potter fragt nach der zï¿½hlbaren Nicole.
-Potter fragt nach der zï¿½hlbaren Nicole, der unzï¿½hlbaren Sandra und dem sprechenden Alf.
-
-
-=== Rï¿½ckgabewert ===
-
-Sebastian ist zï¿½hlbar.
-//Sebastian ist ...
-
-Potter endet mit dem zï¿½hlbaren Sebastian. //Der Wert von Sebastian wird zurï¿½ckgegeben, der Typ wird erzwungen.
+//Es gibt keine Funktion ohne Rückgabewert.
+//Der Rückgabewert ist immer eine Variable.
 
 === Aufruf ===
 
-//Ohne Rï¿½ckgabewert
-Potter beginnt mit Nicole.
-Potter beginnt mit Nicole, Sandra und Alf.
+Vier ist Deinemama mit Eins, Zwei, Drei.
 
-//Mit Rï¿½ckgabewert
+Alf ist Aiko plus Deinemama mit Eins, Zwei, Drei.
 
-Potter beginnt mit Nicole und endet mit Sebastian.
-//Sebastian hat jetzt den Typ, mit dem die Funktion definiert wurde. Wenn er schon existiert, muss er einen kompatiblen Typ haben.
+//"mit" ist das Codewort für den Funktionsaufruf.
+
+
 
 ===== Ein- und Ausgabe =====
 
 === Eingabe ===
 
-Der Erzï¿½hler fragt nach Sebastian. 	//Sebastian muss schon deklariert sein.
+Der Integer Alf ist 5.
+Lese Alf.
+
+//Variablentyp wird uebernommen.
 
 === Ausgabe ===
 
-Der Erzï¿½hler sagt "Hallo.".
-Der Erzï¿½hler redet von Alf. 	//Der Wert von Alf wird ausgegeben.
-Der Erzï¿½hler blï¿½ttert um.		//Newline?
-Der Erzï¿½hler macht eine Pause.	//Zwei Newlines?
+Zeige Alf.
 
+//Ausgabe: "Alf: 42"
+
+Zeige "Hallo Welt!".
+
+//Ausgabe: "Hallo Welt!"
 
 
 
