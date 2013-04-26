@@ -3,27 +3,69 @@ import org.antlr.v4.runtime.tree.*;
 import org.antlr.v4.runtime.Token;
 
 public interface ExprVisitor<T> extends ParseTreeVisitor<T> {
+	T visitSCond(ExprParser.SCondContext ctx);
+
+	T visitMoreArgs(ExprParser.MoreArgsContext ctx);
+
+	T visitSentences(ExprParser.SentencesContext ctx);
+
+	T visitSLoop(ExprParser.SLoopContext ctx);
+
 	T visitSum(ExprParser.SumContext ctx);
 
-	T visitMult(ExprParser.MultContext ctx);
+	T visitCompU(ExprParser.CompUContext ctx);
 
-	T visitDivi(ExprParser.DiviContext ctx);
+	T visitFDef(ExprParser.FDefContext ctx);
 
-	T visitSatzbau(ExprParser.SatzbauContext ctx);
-
-	T visitNameModu(ExprParser.NameModuContext ctx);
-
-	T visitStart(ExprParser.StartContext ctx);
+	T visitCompLE(ExprParser.CompLEContext ctx);
 
 	T visitModulo(ExprParser.ModuloContext ctx);
 
-	T visitVariableDefinition(ExprParser.VariableDefinitionContext ctx);
+	T visitSVarAssign(ExprParser.SVarAssignContext ctx);
 
-	T visitDiff(ExprParser.DiffContext ctx);
+	T visitCondTE(ExprParser.CondTEContext ctx);
 
-	T visitNameList(ExprParser.NameListContext ctx);
+	T visitMultiplication(ExprParser.MultiplicationContext ctx);
 
-	T visitQuot(ExprParser.QuotContext ctx);
+	T visitArgInt(ExprParser.ArgIntContext ctx);
 
-	T visitVariableDefinitionMultiple(ExprParser.VariableDefinitionMultipleContext ctx);
+	T visitSFuncDef(ExprParser.SFuncDefContext ctx);
+
+	T visitArgFloat(ExprParser.ArgFloatContext ctx);
+
+	T visitFuncCall(ExprParser.FuncCallContext ctx);
+
+	T visitVardefFloat(ExprParser.VardefFloatContext ctx);
+
+	T visitCondT(ExprParser.CondTContext ctx);
+
+	T visitLp(ExprParser.LpContext ctx);
+
+	T visitDivison(ExprParser.DivisonContext ctx);
+
+	T visitValueF(ExprParser.ValueFContext ctx);
+
+	T visitVardefInt(ExprParser.VardefIntContext ctx);
+
+	T visitCompG(ExprParser.CompGContext ctx);
+
+	T visitDifference(ExprParser.DifferenceContext ctx);
+
+	T visitOnePar(ExprParser.OneParContext ctx);
+
+	T visitOneArg(ExprParser.OneArgContext ctx);
+
+	T visitStart(ExprParser.StartContext ctx);
+
+	T visitCompL(ExprParser.CompLContext ctx);
+
+	T visitVarValue(ExprParser.VarValueContext ctx);
+
+	T visitMorePars(ExprParser.MoreParsContext ctx);
+
+	T visitCompGE(ExprParser.CompGEContext ctx);
+
+	T visitCompE(ExprParser.CompEContext ctx);
+
+	T visitValueI(ExprParser.ValueIContext ctx);
 }

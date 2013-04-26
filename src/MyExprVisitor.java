@@ -11,32 +11,42 @@ public class MyExprVisitor<T> extends ExprBaseVisitor<T> {
 	 */
 	
 	@Override
+	public T visitSCond(final ExprParser.SCondContext ctx) {
+		return visitChildren(ctx);
+	}
+	
+	@Override
+	public T visitMoreArgs(final ExprParser.MoreArgsContext ctx) {
+		return visitChildren(ctx);
+	}
+	
+	@Override
+	public T visitSentences(final ExprParser.SentencesContext ctx) {
+		return visitChildren(ctx);
+	}
+	
+	@Override
+	public T visitSLoop(final ExprParser.SLoopContext ctx) {
+		return visitChildren(ctx);
+	}
+	
+	@Override
 	public T visitSum(final ExprParser.SumContext ctx) {
 		return visitChildren(ctx);
 	}
 	
 	@Override
-	public T visitMult(final ExprParser.MultContext ctx) {
+	public T visitCompU(final ExprParser.CompUContext ctx) {
 		return visitChildren(ctx);
 	}
 	
 	@Override
-	public T visitDivi(final ExprParser.DiviContext ctx) {
+	public T visitFDef(final ExprParser.FDefContext ctx) {
 		return visitChildren(ctx);
 	}
 	
 	@Override
-	public T visitSatzbau(final ExprParser.SatzbauContext ctx) {
-		return visitChildren(ctx);
-	}
-	
-	@Override
-	public T visitNameModu(final ExprParser.NameModuContext ctx) {
-		return visitChildren(ctx);
-	}
-	
-	@Override
-	public T visitStart(final ExprParser.StartContext ctx) {
+	public T visitCompLE(final ExprParser.CompLEContext ctx) {
 		return visitChildren(ctx);
 	}
 	
@@ -46,27 +56,122 @@ public class MyExprVisitor<T> extends ExprBaseVisitor<T> {
 	}
 	
 	@Override
-	public T visitVariableDefinition(final ExprParser.VariableDefinitionContext ctx) {
+	public T visitSVarAssign(final ExprParser.SVarAssignContext ctx) {
 		return visitChildren(ctx);
 	}
 	
 	@Override
-	public T visitDiff(final ExprParser.DiffContext ctx) {
+	public T visitCondTE(final ExprParser.CondTEContext ctx) {
 		return visitChildren(ctx);
 	}
 	
 	@Override
-	public T visitNameList(final ExprParser.NameListContext ctx) {
+	public T visitMultiplication(final ExprParser.MultiplicationContext ctx) {
 		return visitChildren(ctx);
 	}
 	
 	@Override
-	public T visitQuot(final ExprParser.QuotContext ctx) {
+	public T visitArgInt(final ExprParser.ArgIntContext ctx) {
 		return visitChildren(ctx);
 	}
 	
 	@Override
-	public T visitVariableDefinitionMultiple(final ExprParser.VariableDefinitionMultipleContext ctx) {
+	public T visitSFuncDef(final ExprParser.SFuncDefContext ctx) {
+		return visitChildren(ctx);
+	}
+	
+	@Override
+	public T visitArgFloat(final ExprParser.ArgFloatContext ctx) {
+		return visitChildren(ctx);
+	}
+	
+	@Override
+	public T visitFuncCall(final ExprParser.FuncCallContext ctx) {
+		return visitChildren(ctx);
+	}
+	
+	@Override
+	public T visitVardefFloat(final ExprParser.VardefFloatContext ctx) {
+		return visitChildren(ctx);
+	}
+	
+	@Override
+	public T visitCondT(final ExprParser.CondTContext ctx) {
+		return visitChildren(ctx);
+	}
+	
+	@Override
+	public T visitLp(final ExprParser.LpContext ctx) {
+		return visitChildren(ctx);
+	}
+	
+	@Override
+	public T visitDivison(final ExprParser.DivisonContext ctx) {
+		return visitChildren(ctx);
+	}
+	
+	@Override
+	public T visitValueF(final ExprParser.ValueFContext ctx) {
+		return visitChildren(ctx);
+	}
+	
+	@Override
+	public T visitVardefInt(final ExprParser.VardefIntContext ctx) {
+		return visitChildren(ctx);
+	}
+	
+	@Override
+	public T visitCompG(final ExprParser.CompGContext ctx) {
+		return visitChildren(ctx);
+	}
+	
+	@Override
+	public T visitDifference(final ExprParser.DifferenceContext ctx) {
+		return visitChildren(ctx);
+	}
+	
+	@Override
+	public T visitOnePar(final ExprParser.OneParContext ctx) {
+		return visitChildren(ctx);
+	}
+	
+	@Override
+	public T visitOneArg(final ExprParser.OneArgContext ctx) {
+		return visitChildren(ctx);
+	}
+	
+	@Override
+	public T visitStart(final ExprParser.StartContext ctx) {
+		return visitChildren(ctx);
+	}
+	
+	@Override
+	public T visitCompL(final ExprParser.CompLContext ctx) {
+		return visitChildren(ctx);
+	}
+	
+	@Override
+	public T visitVarValue(final ExprParser.VarValueContext ctx) {
+		return visitChildren(ctx);
+	}
+	
+	@Override
+	public T visitMorePars(final ExprParser.MoreParsContext ctx) {
+		return visitChildren(ctx);
+	}
+	
+	@Override
+	public T visitCompGE(final ExprParser.CompGEContext ctx) {
+		return visitChildren(ctx);
+	}
+	
+	@Override
+	public T visitCompE(final ExprParser.CompEContext ctx) {
+		return visitChildren(ctx);
+	}
+	
+	@Override
+	public T visitValueI(final ExprParser.ValueIContext ctx) {
 		return visitChildren(ctx);
 	}
 	
