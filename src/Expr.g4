@@ -1,5 +1,5 @@
 grammar Expr;
-start:	sentences;
+start:	STARTLINES sentences | sentences;
 
 
 sentences:
@@ -96,11 +96,11 @@ compType:
 
 NAME: [A-Za-z]+[0-9]* ;
 END: ['.''!''?'][\r\n]+;
-SPACE: [' '] ;
 
 NUMBER: 	[0-9]+ ;
 DECIMAL: 	[0-9]+','+[0-9]+;
 
+STARTLINES:	[\r\n]+;
 
 SKIP: [\t]+ -> skip ;
 COMMENT: '//'+.*?[\r\n]+ -> skip ;

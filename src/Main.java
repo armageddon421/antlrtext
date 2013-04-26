@@ -1,3 +1,5 @@
+import java.io.FileReader;
+
 import org.antlr.v4.runtime.ANTLRInputStream;
 import org.antlr.v4.runtime.CommonTokenStream;
 import org.antlr.v4.runtime.tree.ParseTree;
@@ -7,7 +9,21 @@ public class Main {
 	
 	public static void main(final String[] args) throws Exception {
 		
-		ANTLRInputStream input = new ANTLRInputStream(System.in);
+		
+		// String inputString =
+		// "Der Integer Alf ist 5.\nDie Float Aiko ist 2,3.\n";
+		
+		// ANTLRInputStream input = new ANTLRInputStream(System.in);
+		// ANTLRInputStream input = new ANTLRInputStream(new
+		// StringReader(inputString));
+		
+		if (args.length != 1) {
+			System.err.println("Please specify input file!!!");
+			return;
+		}
+		
+		ANTLRInputStream input = new ANTLRInputStream(new FileReader(args[0]));
+		
 		
 		ExprLexer lexer = new ExprLexer(input);
 		
@@ -20,6 +36,4 @@ public class Main {
 		new MyExprVisitor().visit(tree);
 		
 	}
-	
-	
 }
