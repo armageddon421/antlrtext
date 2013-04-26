@@ -1,26 +1,29 @@
 grammar Expr;
-start:	satzbau;
+start:	sentence;
 
-satzbau: 	satz satzbau
-		|	satz ;
+sentence:
 
-satz: 		name=NAME ' ist zaehlbar' end=END #VariableDefinition
-		|	names=nameList ' sind zaehlbar' end=END #VariableDefinitionMultiple
-		|	name=NAME ' ist die Summe von ' name2=nameList end=END #Sum 
-		|   name=NAME ' ist das Produkt von ' name2=nameList end=END #Mult
-		|   name=NAME ' ist die Differenz von ' name2=nameList end=END #Diff
-		|	name=NAME ' ist der Quotient aus ' name2=nameList end=END #Quot
-		|   name=NAME ' ist die Division von ' name2=nameModu end=END #Divi
-		|   name=NAME ' ist der Rest der Division von ' name2=nameModu end=END #Modulo
-		
-//		|   name=NAME ' ist die Summe des Quotienten aus ' nameList ' der Multiplikation von ' nameList end=END #QuoMul
+	//Variablendeklarationen
+	
+		'Der Integer ' 	varname=NAME ' ist ' value=NUMBER	END	#VardefInt
+	|	'Die Float ' 	varname=NAME ' ist ' value=DECIMAL	END	#VardefFloat
+	
+	|	varname=NAME ' ist' value=expression END	#VarAssign
+	;
+	
 
-		; 
+expression:
 
-
-nameList: 	name1=NAME (', ' namen=NAME)* ' und ' name2 = NAME ;
-nameModu:   name1=NAME ' durch ' name2=NAME;
-
+		varname=NAME		#VarValue
+	|	value=NUMBER		#ValueI
+	|	value=DECIMAL		#ValueF
+	
+	|	' ' left=expression		op=' plus'		right=expression		#Sum
+	|	' ' left=expression		op=' minus'		right=expression		#Difference
+	|	' ' left=expression		op=' mal'		right=expression		#Multiplication
+	|	' ' left=expression		op=' durch'		right=expression		#Divison
+	|	' ' left=expression		op=' modulo'	right=expression		#Modulo
+	;
 
 
 //ausdruck:	
@@ -34,7 +37,8 @@ NAME: [A-Za-z]+[0-9]* ;
 END: ['.''!''?'][\r\n]+;
 SPACE: [' '] ;
 
-NUMBER: [0-9]+ ;
+NUMBER: 	[0-9]+ ;
+DECIMAL: 	[0-9]+','+[0-9]+;
 
 
 SKIP: [\t]+ -> skip ;
