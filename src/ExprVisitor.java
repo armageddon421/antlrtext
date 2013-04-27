@@ -7,6 +7,8 @@ public interface ExprVisitor<T> extends ParseTreeVisitor<T> {
 
 	T visitMoreArgs(ExprParser.MoreArgsContext ctx);
 
+	T visitOutpText(ExprParser.OutpTextContext ctx);
+
 	T visitSentences(ExprParser.SentencesContext ctx);
 
 	T visitSLoop(ExprParser.SLoopContext ctx);
@@ -19,7 +21,13 @@ public interface ExprVisitor<T> extends ParseTreeVisitor<T> {
 
 	T visitCompLE(ExprParser.CompLEContext ctx);
 
+	T visitOutp(ExprParser.OutpContext ctx);
+
+	T visitWrite(ExprParser.WriteContext ctx);
+
 	T visitModulo(ExprParser.ModuloContext ctx);
+
+	T visitInp(ExprParser.InpContext ctx);
 
 	T visitSVarAssign(ExprParser.SVarAssignContext ctx);
 
@@ -62,6 +70,8 @@ public interface ExprVisitor<T> extends ParseTreeVisitor<T> {
 	T visitVarValue(ExprParser.VarValueContext ctx);
 
 	T visitMorePars(ExprParser.MoreParsContext ctx);
+
+	T visitRead(ExprParser.ReadContext ctx);
 
 	T visitCompGE(ExprParser.CompGEContext ctx);
 

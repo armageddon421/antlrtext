@@ -12,23 +12,25 @@ sentence:
 		'Der Integer ' 	varname=NAME ' ist ' valueN=NUMBER	END	#VardefInt
 	|	'Die Float ' 	varname=NAME ' ist ' valueD=DECIMAL	END	#VardefFloat
 	
-	|	varname=NAME ' ist' valueE=expression 	END		#SVarAssign
+	|	varname=NAME ' gleich' valueE=expression 	END		#SVarAssign
 	|	funcdef									END		#SFuncDef
 	|	loop									END		#SLoop
 	|	conditional								END		#SCond
+	|	input									END		#Read
+	|	output									END		#Write
 	;
 	
 
 expression:
-		varname=NAME		#VarValue
-	|	valueN=NUMBER		#ValueI
-	|	valueD=DECIMAL		#ValueF
+		' ' varname=NAME		#VarValue
+	|	' ' valueN=NUMBER		#ValueI
+	|	' ' valueD=DECIMAL		#ValueF
 	
-	|	' ' left=expression		op=' plus'		right=expression		#Sum
-	|	' ' left=expression		op=' minus'		right=expression		#Difference
-	|	' ' left=expression		op=' mal'		right=expression		#Multiplication
-	|	' ' left=expression		op=' durch'		right=expression		#Divison
-	|	' ' left=expression		op=' modulo'	right=expression		#Modulo
+	|	left=expression		op=' plus'		right=expression		#Sum
+	|	left=expression		op=' minus'		right=expression		#Difference
+	|	left=expression		op=' mal'		right=expression		#Multiplication
+	|	left=expression		op=' durch'		right=expression		#Divison
+	|	left=expression		op=' modulo'	right=expression		#Modulo
 	
 	|	' ' funcname=NAME ' mit ' parList								#FuncCall
 	;
@@ -84,7 +86,14 @@ compType:
 	|	'ungleich'				#CompU
 	;
 
-
+input:
+		'Lese ' varname=NAME		#Inp
+	;
+	
+output:
+		'Zeige ' varname=NAME		#Outp
+	|	'Zeige ' text=TEXT 			#OutpText
+	;
 
 
 //ausdruck:	
@@ -97,8 +106,9 @@ compType:
 NAME: [A-Za-z]+[0-9]* ;
 END: ['.''!''?'][\r\n]+;
 
-NUMBER: 	[0-9]+ ;
+NUMBER: 	[0-9]+;
 DECIMAL: 	[0-9]+','+[0-9]+;
+TEXT:		'"'[A-Za-z0-9' ''.''!''?']+'"';
 
 STARTLINES:	[\r\n]+;
 

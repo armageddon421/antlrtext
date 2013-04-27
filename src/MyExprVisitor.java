@@ -1,204 +1,312 @@
-public class MyExprVisitor<T> extends ExprBaseVisitor<T> {
+public class MyExprVisitor<TypeEnum> extends ExprBaseVisitor<Variable.TypeEnum> {
 	
-	Scope	scope;
+	Scope			scope;
+	UniqueGenerator	lblGen;
 	
 	public MyExprVisitor() {
 		
 		scope = new Scope();
+		lblGen = new UniqueGenerator("label");
 		
 	}
 	
-	/*
-	 * @Override public T visitVariableDefinition(final
-	 * ExprParser.VariableDefinitionContext ctx) {
-	 * 
-	 * String varName = ctx.name.getText(); System.out.println(varName);
-	 * 
-	 * 
-	 * return null; }
-	 */
 	
 	@Override
-	public T visitArgFloat(final ExprParser.ArgFloatContext ctx) {
+	public Variable.TypeEnum visitArgFloat(final ExprParser.ArgFloatContext ctx) {
 		return visitChildren(ctx);
 	}
 	
 	@Override
-	public T visitArgInt(final ExprParser.ArgIntContext ctx) {
+	public Variable.TypeEnum visitArgInt(final ExprParser.ArgIntContext ctx) {
 		return visitChildren(ctx);
 	}
 	
 	@Override
-	public T visitCompE(final ExprParser.CompEContext ctx) {
+	public Variable.TypeEnum visitCompE(final ExprParser.CompEContext ctx) {
 		return visitChildren(ctx);
 	}
 	
 	@Override
-	public T visitCompG(final ExprParser.CompGContext ctx) {
+	public Variable.TypeEnum visitCompG(final ExprParser.CompGContext ctx) {
 		return visitChildren(ctx);
 	}
 	
 	@Override
-	public T visitCompGE(final ExprParser.CompGEContext ctx) {
+	public Variable.TypeEnum visitCompGE(final ExprParser.CompGEContext ctx) {
 		return visitChildren(ctx);
 	}
 	
 	@Override
-	public T visitCompL(final ExprParser.CompLContext ctx) {
+	public Variable.TypeEnum visitCompL(final ExprParser.CompLContext ctx) {
 		return visitChildren(ctx);
 	}
 	
 	@Override
-	public T visitCompLE(final ExprParser.CompLEContext ctx) {
+	public Variable.TypeEnum visitCompLE(final ExprParser.CompLEContext ctx) {
 		return visitChildren(ctx);
 	}
 	
 	@Override
-	public T visitCompU(final ExprParser.CompUContext ctx) {
+	public Variable.TypeEnum visitCompU(final ExprParser.CompUContext ctx) {
 		return visitChildren(ctx);
 	}
 	
 	@Override
-	public T visitCondT(final ExprParser.CondTContext ctx) {
+	public Variable.TypeEnum visitCondT(final ExprParser.CondTContext ctx) {
 		return visitChildren(ctx);
 	}
 	
 	@Override
-	public T visitCondTE(final ExprParser.CondTEContext ctx) {
+	public Variable.TypeEnum visitCondTE(final ExprParser.CondTEContext ctx) {
 		return visitChildren(ctx);
 	}
 	
 	@Override
-	public T visitDifference(final ExprParser.DifferenceContext ctx) {
+	public Variable.TypeEnum visitDifference(final ExprParser.DifferenceContext ctx) {
 		return visitChildren(ctx);
 	}
 	
 	@Override
-	public T visitDivison(final ExprParser.DivisonContext ctx) {
+	public Variable.TypeEnum visitDivison(final ExprParser.DivisonContext ctx) {
 		return visitChildren(ctx);
 	}
 	
 	@Override
-	public T visitFDef(final ExprParser.FDefContext ctx) {
+	public Variable.TypeEnum visitFDef(final ExprParser.FDefContext ctx) {
 		return visitChildren(ctx);
 	}
 	
 	@Override
-	public T visitFuncCall(final ExprParser.FuncCallContext ctx) {
+	public Variable.TypeEnum visitFuncCall(final ExprParser.FuncCallContext ctx) {
 		return visitChildren(ctx);
 	}
 	
 	@Override
-	public T visitLp(final ExprParser.LpContext ctx) {
+	public Variable.TypeEnum visitInp(final ExprParser.InpContext ctx) {
 		return visitChildren(ctx);
 	}
 	
 	@Override
-	public T visitModulo(final ExprParser.ModuloContext ctx) {
+	public Variable.TypeEnum visitLp(final ExprParser.LpContext ctx) {
 		return visitChildren(ctx);
 	}
 	
 	@Override
-	public T visitMoreArgs(final ExprParser.MoreArgsContext ctx) {
+	public Variable.TypeEnum visitModulo(final ExprParser.ModuloContext ctx) {
 		return visitChildren(ctx);
 	}
 	
 	@Override
-	public T visitMorePars(final ExprParser.MoreParsContext ctx) {
+	public Variable.TypeEnum visitMoreArgs(final ExprParser.MoreArgsContext ctx) {
 		return visitChildren(ctx);
 	}
 	
 	@Override
-	public T visitMultiplication(final ExprParser.MultiplicationContext ctx) {
+	public Variable.TypeEnum visitMorePars(final ExprParser.MoreParsContext ctx) {
 		return visitChildren(ctx);
 	}
 	
 	@Override
-	public T visitOneArg(final ExprParser.OneArgContext ctx) {
+	public Variable.TypeEnum visitMultiplication(final ExprParser.MultiplicationContext ctx) {
 		return visitChildren(ctx);
 	}
 	
 	@Override
-	public T visitOnePar(final ExprParser.OneParContext ctx) {
+	public Variable.TypeEnum visitOneArg(final ExprParser.OneArgContext ctx) {
 		return visitChildren(ctx);
 	}
 	
 	@Override
-	public T visitSCond(final ExprParser.SCondContext ctx) {
+	public Variable.TypeEnum visitOnePar(final ExprParser.OneParContext ctx) {
 		return visitChildren(ctx);
 	}
 	
 	@Override
-	public T visitSentences(final ExprParser.SentencesContext ctx) {
+	public Variable.TypeEnum visitOutp(final ExprParser.OutpContext ctx) {
+		
+		String varname = ctx.varname.getText();
+		Variable var = scope.getVariable(varname);
+		
+		if (var.getType() == Variable.TypeEnum.INT) {
+			System.out.println("getstatic java/lang/System/out Ljava/io/PrintStream;");
+			var.load();
+			System.out.println("invokevirtual  java/io/PrintStream/println(I)V");
+		} else if (var.getType() == Variable.TypeEnum.FLOAT) {
+			System.out.println("getstatic java/lang/System/out Ljava/io/PrintStream;");
+			var.load();
+			System.out.println("invokevirtual  java/io/PrintStream/println(F)V");
+		}
+		
+		return null;
+	}
+	
+	
+	@Override
+	public Variable.TypeEnum visitOutpText(final ExprParser.OutpTextContext ctx) {
+		
+		String txt = ctx.text.getText();
+		
+		System.out.println("getstatic java/lang/System/out Ljava/io/PrintStream;");
+		System.out.printf("ldc %s\n", txt);
+		System.out.println("invokevirtual  java/io/PrintStream/println(Ljava/lang/String;)V");
+		
+		return null;
+	}
+	
+	
+	@Override
+	public Variable.TypeEnum visitRead(final ExprParser.ReadContext ctx) {
 		return visitChildren(ctx);
 	}
 	
 	@Override
-	public T visitSFuncDef(final ExprParser.SFuncDefContext ctx) {
+	public Variable.TypeEnum visitSCond(final ExprParser.SCondContext ctx) {
 		return visitChildren(ctx);
 	}
 	
 	@Override
-	public T visitSLoop(final ExprParser.SLoopContext ctx) {
+	public Variable.TypeEnum visitSentences(final ExprParser.SentencesContext ctx) {
 		return visitChildren(ctx);
 	}
 	
 	@Override
-	public T visitStart(final ExprParser.StartContext ctx) {
+	public Variable.TypeEnum visitSFuncDef(final ExprParser.SFuncDefContext ctx) {
 		return visitChildren(ctx);
 	}
 	
 	@Override
-	public T visitSum(final ExprParser.SumContext ctx) {
+	public Variable.TypeEnum visitSLoop(final ExprParser.SLoopContext ctx) {
 		return visitChildren(ctx);
 	}
 	
 	@Override
-	public T visitSVarAssign(final ExprParser.SVarAssignContext ctx) {
+	public Variable.TypeEnum visitStart(final ExprParser.StartContext ctx) {
+		
+		System.out.println(".source output.j");
+		System.out.println(".class public Output");
+		System.out.println(".super java/lang/Object");
+		System.out.println();
+		System.out.println(".method public static main([Ljava/lang/String;)V");
+		System.out.println(".limit stack 2000");
+		System.out.println(".limit locals 1000");
+		
+		visitChildren(ctx);
+		
+		System.out.println("return");
+		System.out.println(".end method");
+		
+		return null;
+	}
+	
+	@Override
+	public Variable.TypeEnum visitSum(final ExprParser.SumContext ctx) {
+		
+		Variable.TypeEnum ltype = visit(ctx.left);
+		Variable.TypeEnum rtype = visit(ctx.right);
+		
+		if (ltype == Variable.TypeEnum.INT && rtype == Variable.TypeEnum.FLOAT) {
+			System.out.println("swap");
+			System.out.println("i2f");
+			System.out.println("swap");
+			ltype = Variable.TypeEnum.FLOAT;
+			
+		} else if (ltype == Variable.TypeEnum.FLOAT && rtype == Variable.TypeEnum.INT) {
+			System.out.println("i2f");
+			rtype = Variable.TypeEnum.FLOAT;
+		}
+		
+		if (ltype == Variable.TypeEnum.INT) {
+			System.out.println("iadd");
+		} else if (ltype == Variable.TypeEnum.FLOAT) {
+			System.out.println("fadd");
+		}
+		
+		return ltype; // same as rtype anyways
+	}
+	
+	@Override
+	public Variable.TypeEnum visitSVarAssign(final ExprParser.SVarAssignContext ctx) {
+		
+		// Den Typ des sich auf dem Stack befindlichen Elements merken.
+		Variable.TypeEnum stackType = visit(ctx.valueE);
+		Variable var = scope.getVariable(ctx.varname.getText());
+		Variable.TypeEnum varType = var.getType();
+		
+		if (varType == Variable.TypeEnum.INT && stackType == Variable.TypeEnum.FLOAT) {
+			System.out.println("f2i");
+		} else if (varType == Variable.TypeEnum.FLOAT && stackType == Variable.TypeEnum.INT) {
+			System.out.println("i2f");
+		}
+		
+		var.store();
+		
+		return null;
+	}
+	
+	@Override
+	public Variable.TypeEnum visitValueF(final ExprParser.ValueFContext ctx) {
 		return visitChildren(ctx);
 	}
 	
 	@Override
-	public T visitValueF(final ExprParser.ValueFContext ctx) {
+	public Variable.TypeEnum visitValueI(final ExprParser.ValueIContext ctx) {
 		return visitChildren(ctx);
 	}
 	
 	@Override
-	public T visitValueI(final ExprParser.ValueIContext ctx) {
-		return visitChildren(ctx);
-	}
-	
-	@Override
-	public T visitVardefFloat(final ExprParser.VardefFloatContext ctx) {
+	public Variable.TypeEnum visitVardefFloat(final ExprParser.VardefFloatContext ctx) {
 		
 		String varname = ctx.varname.getText();
 		float value = Float.parseFloat(ctx.valueD.getText().replace(',', '.'));
 		
-		scope.addVariable(Variable.TypeEnum.FLOAT, varname);
+		if (scope.isVariableInCurrentScope(varname)) {
+			System.err.printf("Variable %s already exists in this scope!", varname);
+			System.exit(1);
+		}
+		
+		System.out.printf("ldc %s\n", Float.toString(value));
+		scope.addVariable(Variable.TypeEnum.FLOAT, varname).store();
 		
 		
 		return null;
 	}
 	
 	@Override
-	public T visitVardefInt(final ExprParser.VardefIntContext ctx) {
+	public Variable.TypeEnum visitVardefInt(final ExprParser.VardefIntContext ctx) {
 		
 		String varname = ctx.varname.getText();
 		int value = Integer.parseInt(ctx.valueN.getText());
 		
-		scope.addVariable(Variable.TypeEnum.INT, varname);
+		if (scope.isVariableInCurrentScope(varname)) {
+			System.err.printf("Variable %s already exists in this scope!", varname);
+			System.exit(1);
+		}
+		
+		System.out.printf("ldc %d\n", value);
+		scope.addVariable(Variable.TypeEnum.INT, varname).store();
 		
 		return null;
 	}
 	
 	@Override
-	public T visitVarValue(final ExprParser.VarValueContext ctx) {
+	public Variable.TypeEnum visitVarValue(final ExprParser.VarValueContext ctx) {
+		
+		Variable var = scope.getVariable(ctx.varname.getText());
+		
+		var.load();
+		
+		return var.getType();
+	}
+	
+	@Override
+	public Variable.TypeEnum visitWrite(final ExprParser.WriteContext ctx) {
 		return visitChildren(ctx);
 	}
 	
+	
 	/*
-	 * @Override public T visitSubtraktion(final ExprParser.SubtraktionContext
-	 * ctx) {
+	 * @Override public Variable.TypeEnum visitSubtraktion(final
+	 * ExprParser.SubtraktionContext ctx) {
 	 * 
 	 * visit(ctx.links); visit(ctx.rechts);
 	 * 
@@ -206,12 +314,12 @@ public class MyExprVisitor<T> extends ExprBaseVisitor<T> {
 	 * 
 	 * return null; }
 	 * 
-	 * @Override public T visitZahl(final ExprParser.ZahlContext ctx) {
-	 * System.out.printf("Zahl: %s\n", ctx.getText()); return
+	 * @Override public Variable.TypeEnum visitZahl(final ExprParser.ZahlContext
+	 * ctx) { System.out.printf("Zahl: %s\n", ctx.getText()); return
 	 * super.visitZahl(ctx); }
 	 * 
-	 * @Override public T visitKlammer(final ExprParser.KlammerContext ctx) {
-	 * visit(ctx.inKlammer); return null; }
+	 * @Override public Variable.TypeEnum visitKlammer(final
+	 * ExprParser.KlammerContext ctx) { visit(ctx.inKlammer); return null; }
 	 */
 	
 }
