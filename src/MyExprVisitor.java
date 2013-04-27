@@ -39,39 +39,11 @@ public class MyExprVisitor<TypeEnum> extends ExprBaseVisitor<Variable.TypeEnum> 
 		return visitChildren(ctx);
 	}
 	
-	@Override
-	public Variable.TypeEnum visitCompE(final ExprParser.CompEContext ctx) {
-		return visitChildren(ctx);
-	}
-	
-	@Override
-	public Variable.TypeEnum visitCompG(final ExprParser.CompGContext ctx) {
-		return visitChildren(ctx);
-	}
-	
-	@Override
-	public Variable.TypeEnum visitCompGE(final ExprParser.CompGEContext ctx) {
-		return visitChildren(ctx);
-	}
-	
-	@Override
-	public Variable.TypeEnum visitCompL(final ExprParser.CompLContext ctx) {
-		return visitChildren(ctx);
-	}
-	
-	@Override
-	public Variable.TypeEnum visitCompLE(final ExprParser.CompLEContext ctx) {
-		return visitChildren(ctx);
-	}
-	
-	@Override
-	public Variable.TypeEnum visitCompU(final ExprParser.CompUContext ctx) {
-		return visitChildren(ctx);
-	}
 	
 	@Override
 	public Variable.TypeEnum visitCondT(final ExprParser.CondTContext ctx) {
-		return visitChildren(ctx);
+		
+		
 	}
 	
 	@Override
@@ -81,12 +53,52 @@ public class MyExprVisitor<TypeEnum> extends ExprBaseVisitor<Variable.TypeEnum> 
 	
 	@Override
 	public Variable.TypeEnum visitDifference(final ExprParser.DifferenceContext ctx) {
-		return visitChildren(ctx);
+		Variable.TypeEnum ltype = visit(ctx.left);
+		Variable.TypeEnum rtype = visit(ctx.right);
+		
+		if (ltype == Variable.TypeEnum.INT && rtype == Variable.TypeEnum.FLOAT) {
+			System.out.println("swap");
+			System.out.println("i2f");
+			System.out.println("swap");
+			ltype = Variable.TypeEnum.FLOAT;
+			
+		} else if (ltype == Variable.TypeEnum.FLOAT && rtype == Variable.TypeEnum.INT) {
+			System.out.println("i2f");
+			rtype = Variable.TypeEnum.FLOAT;
+		}
+		
+		if (ltype == Variable.TypeEnum.INT) {
+			System.out.println("isub");
+		} else if (ltype == Variable.TypeEnum.FLOAT) {
+			System.out.println("fsub");
+		}
+		
+		return ltype; // same as rtype anyways
 	}
 	
 	@Override
 	public Variable.TypeEnum visitDivison(final ExprParser.DivisonContext ctx) {
-		return visitChildren(ctx);
+		Variable.TypeEnum ltype = visit(ctx.left);
+		Variable.TypeEnum rtype = visit(ctx.right);
+		
+		if (ltype == Variable.TypeEnum.INT && rtype == Variable.TypeEnum.FLOAT) {
+			System.out.println("swap");
+			System.out.println("i2f");
+			System.out.println("swap");
+			ltype = Variable.TypeEnum.FLOAT;
+			
+		} else if (ltype == Variable.TypeEnum.FLOAT && rtype == Variable.TypeEnum.INT) {
+			System.out.println("i2f");
+			rtype = Variable.TypeEnum.FLOAT;
+		}
+		
+		if (ltype == Variable.TypeEnum.INT) {
+			System.out.println("idiv");
+		} else if (ltype == Variable.TypeEnum.FLOAT) {
+			System.out.println("fdiv");
+		}
+		
+		return ltype; // same as rtype anyways
 	}
 	
 	@Override
@@ -126,7 +138,27 @@ public class MyExprVisitor<TypeEnum> extends ExprBaseVisitor<Variable.TypeEnum> 
 	
 	@Override
 	public Variable.TypeEnum visitMultiplication(final ExprParser.MultiplicationContext ctx) {
-		return visitChildren(ctx);
+		Variable.TypeEnum ltype = visit(ctx.left);
+		Variable.TypeEnum rtype = visit(ctx.right);
+		
+		if (ltype == Variable.TypeEnum.INT && rtype == Variable.TypeEnum.FLOAT) {
+			System.out.println("swap");
+			System.out.println("i2f");
+			System.out.println("swap");
+			ltype = Variable.TypeEnum.FLOAT;
+			
+		} else if (ltype == Variable.TypeEnum.FLOAT && rtype == Variable.TypeEnum.INT) {
+			System.out.println("i2f");
+			rtype = Variable.TypeEnum.FLOAT;
+		}
+		
+		if (ltype == Variable.TypeEnum.INT) {
+			System.out.println("imul");
+		} else if (ltype == Variable.TypeEnum.FLOAT) {
+			System.out.println("fmul");
+		}
+		
+		return ltype; // same as rtype anyways
 	}
 	
 	@Override
@@ -174,11 +206,6 @@ public class MyExprVisitor<TypeEnum> extends ExprBaseVisitor<Variable.TypeEnum> 
 	
 	@Override
 	public Variable.TypeEnum visitRead(final ExprParser.ReadContext ctx) {
-		return visitChildren(ctx);
-	}
-	
-	@Override
-	public Variable.TypeEnum visitSCond(final ExprParser.SCondContext ctx) {
 		return visitChildren(ctx);
 	}
 	

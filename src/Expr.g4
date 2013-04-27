@@ -78,17 +78,17 @@ argType:
 	;
 
 loop:
-		'Solange' valueE=expression ' ' rel=compType END
+		'Solange' leftC=expression ' ' rel=compType ' ' rightC=expression END
 		sentences
 		'Schleifenende'						#Lp
 	;
 		
 conditional:
-		'Wenn ' valueE=expression ' ' rel=compType END
+		'Wenn ' leftC=expression ' ' rel=compType ' ' rightC=expression END
 		then=sentences
 		'Ende'								#CondT
 		
-	|	'Wenn ' valueE=expression ' ' rel=compType END
+	|	'Wenn ' leftC=expression ' ' rel=compType ' ' rightC=expression END
 		thenBranch=sentences
 		'Sonst' END
 		elseBranch=sentences
