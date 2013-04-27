@@ -1,3 +1,5 @@
+import java.util.HashMap;
+
 //Copyright 2013 Robet Tagscherer, Alfred Becker
 //
 //This file is part of antlrtext.
@@ -18,8 +20,19 @@
 
 public class MyExprVisitor<TypeEnum> extends ExprBaseVisitor<Variable.TypeEnum> {
 	
-	Scope			scope;
-	UniqueGenerator	lblGen;
+	private static HashMap<String, String>	compTypes	= new HashMap<String, String>();
+	static {
+		compTypes.put("kleiner", "lt");
+		compTypes.put("kleiner oder gleich", "le");
+		compTypes.put("gleich", "eq");
+		compTypes.put("groesser oder gleich", "ge");
+		compTypes.put("groesser", "gt");
+		compTypes.put("ungleich", "ne");
+	}
+	
+	
+	Scope									scope;
+	UniqueGenerator							lblGen;
 	
 	public MyExprVisitor() {
 		
@@ -42,13 +55,85 @@ public class MyExprVisitor<TypeEnum> extends ExprBaseVisitor<Variable.TypeEnum> 
 	
 	@Override
 	public Variable.TypeEnum visitCondT(final ExprParser.CondTContext ctx) {
+		String rel = ctx.rel.getText();
+		String compSuffix = compTypes.get(rel);
+		
+		Variable.TypeEnum ltype = visit(ctx.leftC);
+		Variable.TypeEnum rtype = visit(ctx.rightC);
+		
+		if (ltype == Variable.TypeEnum.INT && rtype == Variable.TypeEnum.FLOAT) {
+			System.out.println("swap");
+			System.out.println("i2f");
+			System.out.println("swap");
+			ltype = Variable.TypeEnum.FLOAT;
+			
+		} else if (ltype == Variable.TypeEnum.FLOAT && rtype == Variable.TypeEnum.INT) {
+			System.out.println("i2f");
+			rtype = Variable.TypeEnum.FLOAT;
+		}
+		
+		String lblOut = lblGen.pullNumber();
+		
+		System.out.println("swap"); // logik invertieren
+		
+		if (ltype == Variable.TypeEnum.INT) {
+			System.out.printf("if_icmp%s %s\n", compSuffix, lblOut);
+		} else if (ltype == Variable.TypeEnum.FLOAT) {
+			System.out.printf("fcmpl\n");
+			System.out.printf("if%s %s\n", compSuffix, lblOut);
+		}
+		
+		visit(ctx.then);
+		
+		System.out.printf("%s:\n", lblOut);
 		
 		
+		return null;
 	}
 	
 	@Override
 	public Variable.TypeEnum visitCondTE(final ExprParser.CondTEContext ctx) {
-		return visitChildren(ctx);
+		String rel = ctx.rel.getText();
+		String compSuffix = compTypes.get(rel);
+		
+		Variable.TypeEnum ltype = visit(ctx.leftC);
+		Variable.TypeEnum rtype = visit(ctx.rightC);
+		
+		if (ltype == Variable.TypeEnum.INT && rtype == Variable.TypeEnum.FLOAT) {
+			System.out.println("swap");
+			System.out.println("i2f");
+			System.out.println("swap");
+			ltype = Variable.TypeEnum.FLOAT;
+			
+		} else if (ltype == Variable.TypeEnum.FLOAT && rtype == Variable.TypeEnum.INT) {
+			System.out.println("i2f");
+			rtype = Variable.TypeEnum.FLOAT;
+		}
+		
+		String lblElse = lblGen.pullNumber();
+		String lblOut = lblGen.pullNumber();
+		
+		System.out.println("swap"); // logik invertieren
+		
+		if (ltype == Variable.TypeEnum.INT) {
+			System.out.printf("if_icmp%s %s\n", compSuffix, lblElse);
+		} else if (ltype == Variable.TypeEnum.FLOAT) {
+			System.out.printf("fcmpl\n");
+			System.out.printf("if%s %s\n", compSuffix, lblElse);
+		}
+		
+		visit(ctx.thenBranch);
+		System.out.printf("goto %s\n", lblOut);
+		
+		System.out.printf("%s:\n", lblElse);
+		
+		
+		visit(ctx.elseBranch);
+		
+		System.out.printf("%s:\n", lblOut);
+		
+		
+		return null;
 	}
 	
 	@Override
@@ -118,7 +203,45 @@ public class MyExprVisitor<TypeEnum> extends ExprBaseVisitor<Variable.TypeEnum> 
 	
 	@Override
 	public Variable.TypeEnum visitLp(final ExprParser.LpContext ctx) {
-		return visitChildren(ctx);
+		String rel = ctx.rel.getText();
+		String compSuffix = compTypes.get(rel);
+		String lblLoop = lblGen.pullNumber();
+		String lblOut = lblGen.pullNumber();
+		
+		System.out.printf("%s:\n", lblLoop);
+		
+		Variable.TypeEnum ltype = visit(ctx.leftC);
+		Variable.TypeEnum rtype = visit(ctx.rightC);
+		
+		
+		if (ltype == Variable.TypeEnum.INT && rtype == Variable.TypeEnum.FLOAT) {
+			System.out.println("swap");
+			System.out.println("i2f");
+			System.out.println("swap");
+			ltype = Variable.TypeEnum.FLOAT;
+			
+		} else if (ltype == Variable.TypeEnum.FLOAT && rtype == Variable.TypeEnum.INT) {
+			System.out.println("i2f");
+			rtype = Variable.TypeEnum.FLOAT;
+		}
+		
+		
+		System.out.println("swap"); // logik invertieren
+		
+		if (ltype == Variable.TypeEnum.INT) {
+			System.out.printf("if_icmp%s %s\n", compSuffix, lblOut);
+		} else if (ltype == Variable.TypeEnum.FLOAT) {
+			System.out.printf("fcmpl\n");
+			System.out.printf("if%s %s\n", compSuffix, lblOut);
+		}
+		
+		visit(ctx.action);
+		System.out.printf("goto %s\n", lblLoop);
+		
+		System.out.printf("%s:\n", lblOut);
+		
+		
+		return null;
 	}
 	
 	@Override
@@ -290,12 +413,21 @@ public class MyExprVisitor<TypeEnum> extends ExprBaseVisitor<Variable.TypeEnum> 
 	
 	@Override
 	public Variable.TypeEnum visitValueF(final ExprParser.ValueFContext ctx) {
-		return visitChildren(ctx);
+		float val = Float.parseFloat(ctx.valueD.getText().replace(',', '.'));
+		
+		System.out.printf("ldc %s\n", Float.toString(val));
+		
+		return Variable.TypeEnum.FLOAT;
 	}
 	
 	@Override
 	public Variable.TypeEnum visitValueI(final ExprParser.ValueIContext ctx) {
-		return visitChildren(ctx);
+		
+		int val = Integer.parseInt(ctx.valueN.getText());
+		
+		System.out.printf("ldc %d\n", val);
+		
+		return Variable.TypeEnum.INT;
 	}
 	
 	@Override
