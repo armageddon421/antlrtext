@@ -30,9 +30,11 @@ public class MyExprVisitor<TypeEnum> extends ExprBaseVisitor<Variable.TypeEnum> 
 		compTypes.put("ungleich", "ne");
 	}
 	
+	private String							returnhelper;
 	
-	Scope									scope;
-	UniqueGenerator							lblGen;
+	
+	private final Scope						scope;
+	private final UniqueGenerator			lblGen;
 	
 	public MyExprVisitor() {
 		
@@ -44,14 +46,38 @@ public class MyExprVisitor<TypeEnum> extends ExprBaseVisitor<Variable.TypeEnum> 
 	
 	@Override
 	public Variable.TypeEnum visitArgFloat(final ExprParser.ArgFloatContext ctx) {
-		return visitChildren(ctx);
+		
+		String vname = ctx.retname.getText();
+		scope.addVariable(Variable.TypeEnum.FLOAT, vname).store();
+		return null;
 	}
 	
 	@Override
 	public Variable.TypeEnum visitArgInt(final ExprParser.ArgIntContext ctx) {
-		return visitChildren(ctx);
+		
+		String vname = ctx.retname.getText();
+		scope.addVariable(Variable.TypeEnum.INT, vname).store();
+		
+		return null;
 	}
 	
+	@Override
+	public Variable.TypeEnum visitRetFloat(final ExprParser.RetFloatContext ctx) {
+		String vname = ctx.retname.getText();
+		System.out.printf("ldc 0.0\n");
+		scope.addVariable(Variable.TypeEnum.FLOAT, vname).store();
+		returnhelper = vname;
+		return null;
+	}
+	
+	@Override
+	public Variable.TypeEnum visitRetInt(final ExprParser.RetIntContext ctx) {
+		String vname = ctx.retname.getText();
+		System.out.printf("ldc 0\n");
+		scope.addVariable(Variable.TypeEnum.INT, vname).store();
+		returnhelper = vname;
+		return null;
+	}
 	
 	@Override
 	public Variable.TypeEnum visitCondT(final ExprParser.CondTContext ctx) {
@@ -188,12 +214,55 @@ public class MyExprVisitor<TypeEnum> extends ExprBaseVisitor<Variable.TypeEnum> 
 	
 	@Override
 	public Variable.TypeEnum visitFDef(final ExprParser.FDefContext ctx) {
-		return visitChildren(ctx);
+		
+		String funcname = ctx.funcname.getText();
+		
+		scope.ascend();
+		
+		
+		// skip func if accidentially reached
+		String lblSkip = lblGen.pullNumber();
+		System.out.printf("goto %s\n", lblSkip);
+		
+		
+		System.out.printf("%s:\n", funcname);
+		Variable retRef = scope.addVariable(Variable.TypeEnum.REF, funcname + "_REF");
+		retRef.store(); // Rücksprungadresse Speichern.
+		
+		visit(ctx.args); // Argumente von Stack in Variablen verfrachten.
+		
+		visit(ctx.atype); // Create Variable for return value and init with 0.
+		String retVarName = returnhelper;
+		Variable retVar = scope.getVariable(retVarName); // And store it here.
+		
+		
+		visit(ctx.action); // Execute function code.
+		
+		
+		retVar.load(); // Throw return value on stack.
+		
+		System.out.printf("ret %d\n", retRef.getID());
+		
+		
+		scope.descend();
+		
+		System.out.printf("%s:\n", lblSkip);
+		return null;
 	}
 	
 	@Override
 	public Variable.TypeEnum visitFuncCall(final ExprParser.FuncCallContext ctx) {
-		return visitChildren(ctx);
+		String funcname = ctx.funcname.getText();
+		// scope.ascend();
+		
+		
+		visit(ctx.pars);
+		
+		System.out.printf("jsr %s\n", funcname); // funktion aufrufen
+		// scope.descend();
+		
+		
+		return null;
 	}
 	
 	@Override
@@ -251,12 +320,23 @@ public class MyExprVisitor<TypeEnum> extends ExprBaseVisitor<Variable.TypeEnum> 
 	
 	@Override
 	public Variable.TypeEnum visitMoreArgs(final ExprParser.MoreArgsContext ctx) {
-		return visitChildren(ctx);
+		
+		visit(ctx.arg);
+		visit(ctx.nextArgs);
+		
+		return null;
 	}
 	
 	@Override
 	public Variable.TypeEnum visitMorePars(final ExprParser.MoreParsContext ctx) {
-		return visitChildren(ctx);
+		
+		visit(ctx.npars);
+		
+		String par = ctx.par.getText();
+		scope.getVariable(par).load();
+		
+		
+		return null;
 	}
 	
 	@Override
@@ -286,12 +366,20 @@ public class MyExprVisitor<TypeEnum> extends ExprBaseVisitor<Variable.TypeEnum> 
 	
 	@Override
 	public Variable.TypeEnum visitOneArg(final ExprParser.OneArgContext ctx) {
-		return visitChildren(ctx);
+		
+		
+		visit(ctx.arg);
+		
+		return null;
 	}
 	
 	@Override
 	public Variable.TypeEnum visitOnePar(final ExprParser.OneParContext ctx) {
-		return visitChildren(ctx);
+		
+		String par = ctx.par.getText();
+		scope.getVariable(par).load();
+		
+		return null;
 	}
 	
 	@Override
@@ -329,11 +417,6 @@ public class MyExprVisitor<TypeEnum> extends ExprBaseVisitor<Variable.TypeEnum> 
 	
 	@Override
 	public Variable.TypeEnum visitRead(final ExprParser.ReadContext ctx) {
-		return visitChildren(ctx);
-	}
-	
-	@Override
-	public Variable.TypeEnum visitSentences(final ExprParser.SentencesContext ctx) {
 		return visitChildren(ctx);
 	}
 	

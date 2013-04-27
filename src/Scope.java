@@ -59,6 +59,7 @@ public class Scope {
 		
 		while (result == null && lv >= 0) {
 			result = getVariableInLevel(level, name);
+			lv -= 1;
 		}
 		
 		return result;

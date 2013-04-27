@@ -41,19 +41,23 @@ public interface ExprVisitor<T> extends ParseTreeVisitor<T> {
 
 	T visitArgFloat(ExprParser.ArgFloatContext ctx);
 
+	T visitRetInt(ExprParser.RetIntContext ctx);
+
 	T visitFuncCall(ExprParser.FuncCallContext ctx);
 
 	T visitVardefFloat(ExprParser.VardefFloatContext ctx);
 
 	T visitCondT(ExprParser.CondTContext ctx);
 
+	T visitRetFloat(ExprParser.RetFloatContext ctx);
+
 	T visitLp(ExprParser.LpContext ctx);
 
 	T visitDivison(ExprParser.DivisonContext ctx);
 
-	T visitValueF(ExprParser.ValueFContext ctx);
-
 	T visitVardefInt(ExprParser.VardefIntContext ctx);
+
+	T visitValueF(ExprParser.ValueFContext ctx);
 
 	T visitCompG(ExprParser.CompGContext ctx);
 

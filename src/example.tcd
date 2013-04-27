@@ -1,29 +1,29 @@
 
-Der Integer Alf ist 1022.
-Die Float Penis ist 13,37.
+Der Integer Start ist 1022.
+Der Integer Schritt ist 42.
+Der Integer Temp ist 0.
 
-Zeige Alf.
-Zeige Penis.
 
-Zeige "Ergebnisse".
 
-Zeige Penis.
+Test braucht Integer Lol.
+Ret gleich Lol minus 22.
+Das Ergebnis ist Integer Ret.
 
-Wenn Penis kleiner 13,3.
-Penis gleich Penis plus 42,0.
-Sonst.
-Penis gleich Penis minus -13.
+
+Step braucht Integer St, Integer Sc.
+Zeige St.
+Der Integer Zwisch ist 0.
+Zwisch gleich St minus Sc.
+Wenn St groesser 0.
+Zwisch gleich Test mit Zwisch.
 Ende.
 
-Zeige "Loop Test!".
-
-Solange Alf groesser Penis.
-Alf gleich Alf minus 42.
-Zeige Alf.
-Schleifenende.
+Res gleich Zwisch.
+Das Ergebnis ist Integer Res.
 
 
+Temp gleich Step mit Start, Schritt.
 
-Zeige Penis.
+Zeige Temp.
 
 

@@ -20,7 +20,7 @@ public class Variable {
 	private final String	name;
 	
 	public enum TypeEnum {
-		INT, FLOAT
+		INT, FLOAT, REF
 	}
 	
 	private final TypeEnum	type;
@@ -58,6 +58,9 @@ public class Variable {
 			case FLOAT:
 				System.out.printf("fstore %d\n", varID);
 				break;
+			case REF:
+				System.out.printf("astore %d\n", varID);
+				break;
 		}
 		
 	}
@@ -70,6 +73,9 @@ public class Variable {
 				break;
 			case FLOAT:
 				System.out.printf("fload %d\n", varID);
+				break;
+			case REF:
+				System.out.printf("aload %d\n", varID);
 				break;
 		}
 		

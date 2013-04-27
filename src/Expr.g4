@@ -41,7 +41,8 @@ sentence:
 	
 
 expression:
-		' ' varname=NAME		#VarValue
+		' ' funcname=NAME ' mit ' pars=parList								#FuncCall
+	|	' ' varname=NAME		#VarValue
 	|	' ' valueN=NUMBER		#ValueI
 	|	' ' valueD=DECIMAL		#ValueF
 	
@@ -51,19 +52,19 @@ expression:
 	|	left=expression		op=' durch'		right=expression		#Divison
 	|	left=expression		op=' modulo'	right=expression		#Modulo
 	
-	|	' ' funcname=NAME ' mit ' parList								#FuncCall
+	
 	;
 
 parList:
 		par=NAME							#OnePar
-	|	par=NAME ', ' parList				#MorePars
+	|	par=NAME ', ' npars=parList				#MorePars
 	;
 
 	
 funcdef:
-		funcname=NAME ' braucht Integer ' argList END
-		sentences
-		'Das Ergebnis ist ' argType				#FDef
+		funcname=NAME ' braucht ' args=argList END
+		action=sentences
+		'Das Ergebnis ist ' atype=retType				#FDef
 	;
 	
 argList:
@@ -75,6 +76,11 @@ argList:
 argType:
 		'Integer ' 	retname=NAME		#ArgInt
 	|	'Float '	retname=NAME		#ArgFloat
+	;
+	
+retType:
+		'Integer ' 	retname=NAME		#RetInt
+	|	'Float '	retname=NAME		#RetFloat
 	;
 
 loop:
