@@ -10,18 +10,6 @@ Ret gleich Lol minus 22.
 Das Ergebnis ist Integer Ret.
 
 
-Step braucht Integer St, Integer Sc.
-Zeige St.
-Der Integer Zwisch ist 0.
-Zwisch gleich St minus Sc.
-Wenn St groesser 0.
-Zwisch gleich Test mit Zwisch.
-Ende.
-
-Res gleich Zwisch.
-Das Ergebnis ist Integer Res.
-
-
 Temp gleich Step mit Start, Schritt.
 
 Zeige Temp.

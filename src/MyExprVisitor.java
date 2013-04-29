@@ -87,6 +87,7 @@ public class MyExprVisitor<TypeEnum> extends ExprBaseVisitor<Variable.TypeEnum> 
 		Variable.TypeEnum ltype = visit(ctx.leftC);
 		Variable.TypeEnum rtype = visit(ctx.rightC);
 		
+		
 		if (ltype == Variable.TypeEnum.INT && rtype == Variable.TypeEnum.FLOAT) {
 			System.out.println("swap");
 			System.out.println("i2f");
@@ -108,8 +109,9 @@ public class MyExprVisitor<TypeEnum> extends ExprBaseVisitor<Variable.TypeEnum> 
 			System.out.printf("fcmpl\n");
 			System.out.printf("if%s %s\n", compSuffix, lblOut);
 		}
-		
+		scope.ascend();
 		visit(ctx.then);
+		scope.descend();
 		
 		System.out.printf("%s:\n", lblOut);
 		
@@ -148,13 +150,16 @@ public class MyExprVisitor<TypeEnum> extends ExprBaseVisitor<Variable.TypeEnum> 
 			System.out.printf("if%s %s\n", compSuffix, lblElse);
 		}
 		
+		scope.ascend();
 		visit(ctx.thenBranch);
+		scope.descend();
 		System.out.printf("goto %s\n", lblOut);
 		
 		System.out.printf("%s:\n", lblElse);
 		
-		
+		scope.ascend();
 		visit(ctx.elseBranch);
+		scope.descend();
 		
 		System.out.printf("%s:\n", lblOut);
 		
@@ -255,12 +260,14 @@ public class MyExprVisitor<TypeEnum> extends ExprBaseVisitor<Variable.TypeEnum> 
 		String funcname = ctx.funcname.getText();
 		// scope.ascend();
 		
+		// scope.push();
 		
 		visit(ctx.pars);
 		
 		System.out.printf("jsr %s\n", funcname); // funktion aufrufen
 		// scope.descend();
 		
+		// scope.pop();
 		
 		return null;
 	}
