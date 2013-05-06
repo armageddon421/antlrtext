@@ -47,6 +47,8 @@ public class MyExprVisitor<TypeEnum> extends ExprBaseVisitor<Variable.TypeEnum> 
 	@Override
 	public Variable.TypeEnum visitArgFloat(final ExprParser.ArgFloatContext ctx) {
 		
+		System.out.println("swap"); // Rücksprungadresse nach hinten schieben!
+		
 		String vname = ctx.retname.getText();
 		scope.addVariable(Variable.TypeEnum.FLOAT, vname).store();
 		return null;
@@ -54,6 +56,8 @@ public class MyExprVisitor<TypeEnum> extends ExprBaseVisitor<Variable.TypeEnum> 
 	
 	@Override
 	public Variable.TypeEnum visitArgInt(final ExprParser.ArgIntContext ctx) {
+		
+		System.out.println("swap"); // Rücksprungadresse nach hinten schieben!
 		
 		String vname = ctx.retname.getText();
 		scope.addVariable(Variable.TypeEnum.INT, vname).store();
@@ -231,8 +235,7 @@ public class MyExprVisitor<TypeEnum> extends ExprBaseVisitor<Variable.TypeEnum> 
 		
 		
 		System.out.printf("%s:\n", funcname);
-		Variable retRef = scope.addVariable(Variable.TypeEnum.REF, funcname + "_REF");
-		retRef.store(); // Rücksprungadresse Speichern.
+		
 		
 		visit(ctx.args); // Argumente von Stack in Variablen verfrachten.
 		
@@ -245,6 +248,11 @@ public class MyExprVisitor<TypeEnum> extends ExprBaseVisitor<Variable.TypeEnum> 
 		
 		
 		retVar.load(); // Throw return value on stack.
+		
+		System.out.println("swap"); // Rücksprungadresse liegt als zweites auf
+									// dem Stack
+		Variable retRef = scope.addVariable(Variable.TypeEnum.REF, funcname + "_REF");
+		retRef.store(); // Rücksprungadresse Speichern.
 		
 		System.out.printf("ret %d\n", retRef.getID());
 		
@@ -260,14 +268,14 @@ public class MyExprVisitor<TypeEnum> extends ExprBaseVisitor<Variable.TypeEnum> 
 		String funcname = ctx.funcname.getText();
 		// scope.ascend();
 		
-		// scope.push();
+		scope.push();
 		
 		visit(ctx.pars);
 		
 		System.out.printf("jsr %s\n", funcname); // funktion aufrufen
 		// scope.descend();
 		
-		// scope.pop();
+		scope.pop();
 		
 		return null;
 	}
@@ -384,7 +392,9 @@ public class MyExprVisitor<TypeEnum> extends ExprBaseVisitor<Variable.TypeEnum> 
 	public Variable.TypeEnum visitOnePar(final ExprParser.OneParContext ctx) {
 		
 		String par = ctx.par.getText();
-		scope.getVariable(par).load();
+		// System.out.println(";" + par);
+		Variable var = scope.getVariable(par);
+		var.load();
 		
 		return null;
 	}
@@ -567,6 +577,23 @@ public class MyExprVisitor<TypeEnum> extends ExprBaseVisitor<Variable.TypeEnum> 
 	
 	@Override
 	public Variable.TypeEnum visitWrite(final ExprParser.WriteContext ctx) {
+		return visitChildren(ctx);
+	}
+	
+	
+	@Override
+	public Variable.TypeEnum visitSSingle(final ExprParser.SSingleContext ctx) {
+		// System.out.printf(";%s",
+		// ctx.sent.getText().trim().replaceAll("[\r\n]+", ""));
+		// System.out.printf(";%s\r\n", ctx.sent.getText().trim());
+		
+		return visitChildren(ctx);
+	}
+	
+	@Override
+	public Variable.TypeEnum visitSMulti(final ExprParser.SMultiContext ctx) {
+		// System.out.printf(";%s\r\n", ctx.sent.getText().trim());
+		
 		return visitChildren(ctx);
 	}
 	

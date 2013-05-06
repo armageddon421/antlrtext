@@ -10,8 +10,6 @@ public class ExprBaseVisitor<T> extends AbstractParseTreeVisitor<T> implements E
 
 	@Override public T visitOutpText(ExprParser.OutpTextContext ctx) { return visitChildren(ctx); }
 
-	@Override public T visitSentences(ExprParser.SentencesContext ctx) { return visitChildren(ctx); }
-
 	@Override public T visitSLoop(ExprParser.SLoopContext ctx) { return visitChildren(ctx); }
 
 	@Override public T visitSum(ExprParser.SumContext ctx) { return visitChildren(ctx); }
@@ -34,9 +32,9 @@ public class ExprBaseVisitor<T> extends AbstractParseTreeVisitor<T> implements E
 
 	@Override public T visitCondTE(ExprParser.CondTEContext ctx) { return visitChildren(ctx); }
 
-	@Override public T visitMultiplication(ExprParser.MultiplicationContext ctx) { return visitChildren(ctx); }
-
 	@Override public T visitArgInt(ExprParser.ArgIntContext ctx) { return visitChildren(ctx); }
+
+	@Override public T visitMultiplication(ExprParser.MultiplicationContext ctx) { return visitChildren(ctx); }
 
 	@Override public T visitSFuncDef(ExprParser.SFuncDefContext ctx) { return visitChildren(ctx); }
 
@@ -76,7 +74,11 @@ public class ExprBaseVisitor<T> extends AbstractParseTreeVisitor<T> implements E
 
 	@Override public T visitMorePars(ExprParser.MoreParsContext ctx) { return visitChildren(ctx); }
 
+	@Override public T visitSSingle(ExprParser.SSingleContext ctx) { return visitChildren(ctx); }
+
 	@Override public T visitRead(ExprParser.ReadContext ctx) { return visitChildren(ctx); }
+
+	@Override public T visitSMulti(ExprParser.SMultiContext ctx) { return visitChildren(ctx); }
 
 	@Override public T visitCompGE(ExprParser.CompGEContext ctx) { return visitChildren(ctx); }
 

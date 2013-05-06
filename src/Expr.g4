@@ -22,8 +22,8 @@ start:	STARTLINES sentences | sentences;
 
 
 sentences:
-		sentence
-	| 	sentence sentences
+		sent=sentence			#SSingle
+	| 	sent=sentence sentences	#SMulti
 	;
 
 sentence:

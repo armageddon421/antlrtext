@@ -9,8 +9,6 @@ public interface ExprVisitor<T> extends ParseTreeVisitor<T> {
 
 	T visitOutpText(ExprParser.OutpTextContext ctx);
 
-	T visitSentences(ExprParser.SentencesContext ctx);
-
 	T visitSLoop(ExprParser.SLoopContext ctx);
 
 	T visitSum(ExprParser.SumContext ctx);
@@ -33,9 +31,9 @@ public interface ExprVisitor<T> extends ParseTreeVisitor<T> {
 
 	T visitCondTE(ExprParser.CondTEContext ctx);
 
-	T visitMultiplication(ExprParser.MultiplicationContext ctx);
-
 	T visitArgInt(ExprParser.ArgIntContext ctx);
+
+	T visitMultiplication(ExprParser.MultiplicationContext ctx);
 
 	T visitSFuncDef(ExprParser.SFuncDefContext ctx);
 
@@ -75,7 +73,11 @@ public interface ExprVisitor<T> extends ParseTreeVisitor<T> {
 
 	T visitMorePars(ExprParser.MoreParsContext ctx);
 
+	T visitSSingle(ExprParser.SSingleContext ctx);
+
 	T visitRead(ExprParser.ReadContext ctx);
+
+	T visitSMulti(ExprParser.SMultiContext ctx);
 
 	T visitCompGE(ExprParser.CompGEContext ctx);
 

@@ -58,7 +58,8 @@ public class Scope {
 		int lv = level;
 		
 		while (result == null && lv >= 0) {
-			result = getVariableInLevel(level, name);
+			// System.out.printf(";level: %d, searching:%s\r\n", lv, name);
+			result = getVariableInLevel(lv, name);
 			lv -= 1;
 		}
 		
@@ -66,10 +67,12 @@ public class Scope {
 	}
 	
 	private Variable getVariableInLevel(final int lv, final String name) {
-		ListIterator<Variable> it = levels.get(lv).listIterator();
+		ListIterator<Variable> it = levels.get(lv).listIterator(0);
 		
 		while (it.hasNext()) {
 			Variable v = it.next();
+			// System.out.printf(";level: %d, searching: %s, current: %s\r\n",
+			// lv, name, v.getName());
 			if (v.getName().equals(name)) {
 				return v;
 			}
@@ -93,6 +96,7 @@ public class Scope {
 			while (varIter.hasNext()) {
 				Variable var = varIter.next();
 				var.load();
+				System.out.printf(";;;%s loaded.\r\n", var.getName());
 			}
 		}
 		
@@ -103,12 +107,13 @@ public class Scope {
 		// skip level 0 because it can never be run recursively
 		ListIterator<ArrayList<Variable>> levelIter = levels.listIterator(levels.size());
 		
-		while (levelIter.hasPrevious()) {
+		while (levelIter.hasPrevious() && levelIter.previousIndex() != 0) {
 			ArrayList<Variable> vlist = levelIter.previous();
 			ListIterator<Variable> varIter = vlist.listIterator(vlist.size());
 			while (varIter.hasPrevious()) {
 				Variable var = varIter.previous();
-				var.load();
+				var.store();
+				System.out.printf(";;;%s stored.\r\n", var.getName());
 			}
 		}
 		

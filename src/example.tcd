@@ -4,13 +4,29 @@ Der Integer Schritt ist 42.
 Der Integer Temp ist 0.
 
 
+Funk braucht Integer Tion.
+Keiner gleich Test mit Tion.
+Das Ergebnis ist Integer Keiner.
 
-Test braucht Integer Lol.
-Ret gleich Lol minus 22.
+
+Test braucht Integer Input.
+Zeige Input.
+
+Ret gleich Input minus 22.
+
+Der Integer Limit ist 0.
+
+Wenn Ret groesser Limit.
+Der Integer Temp2 ist 0.
+Temp2 gleich Input.
+Ret gleich Funk mit Temp2.
+Ende.
+
+Zeige Ret.
 Das Ergebnis ist Integer Ret.
 
 
-Temp gleich Step mit Start, Schritt.
+Temp gleich Test mit Start.
 
 Zeige Temp.
 
