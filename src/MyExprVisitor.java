@@ -248,6 +248,7 @@ public class MyExprVisitor<TypeEnum> extends ExprBaseVisitor<Variable.TypeEnum> 
 		Scope backup = scope;
 		scope = new Scope(true);
 		
+		
 		// Header for method definition
 		System.out.printf(".method static %s(", funcname);
 		funcHead = true; // Argumenttypen für Funktionsheader generieren.
@@ -367,8 +368,9 @@ public class MyExprVisitor<TypeEnum> extends ExprBaseVisitor<Variable.TypeEnum> 
 	@Override
 	public Variable.TypeEnum visitMoreArgs(final ExprParser.MoreArgsContext ctx) {
 		
-		visit(ctx.arg);
 		visit(ctx.nextArgs);
+		visit(ctx.arg);
+		
 		
 		return null;
 	}

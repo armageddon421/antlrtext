@@ -28,15 +28,19 @@ public class Scope {
 	
 	boolean							isFunctionScope;
 	
+	private int						varCounter;
+	
 	public Scope(final boolean func) {
 		levels = new LinkedList<ArrayList<Variable>>();
 		levels.add(new ArrayList<Variable>());
 		level = 0; // 0 is root level.
 		isFunctionScope = func;
+		varCounter = 0;
 		
-		if (func) {
-			addVariable(Variable.TypeEnum.REF, "REF");
-		}
+		// not necessary, as the mehtods are static
+		// if (func) {
+		// addVariable(Variable.TypeEnum.REF, "REF");
+		// }
 		
 	}
 	
@@ -54,7 +58,8 @@ public class Scope {
 	}
 	
 	public Variable addVariable(final Variable.TypeEnum type, final String name) {
-		Variable var = new Variable(type, name);
+		Variable var = new Variable(varCounter, type, name);
+		varCounter += 1;
 		levels.get(level).add(var);
 		return var;
 	}

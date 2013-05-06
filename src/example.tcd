@@ -1,21 +1,17 @@
 
 
-Funk braucht Integer Tion.
-Keiner gleich Test mit Tion.
-Das Ergebnis ist Integer Keiner.
 
-
-Test braucht Integer Input.
+Mod braucht Integer Input, Integer Tei.
 Zeige Input.
 
-Ret gleich Input minus 22.
+Ret gleich Input minus Tei.
 
 Der Integer Limit ist 0.
 
 Wenn Ret groesser Limit.
-Der Integer Temp2 ist 0.
-Temp2 gleich Input.
-Ret gleich Funk mit Temp2.
+Ret gleich Mod mit Ret, Tei.
+Sonst.
+Ret gleich Input.
 Ende.
 
 Zeige Ret.
@@ -26,12 +22,12 @@ Das Ergebnis ist Integer Ret.
 
 
 Der Integer Start ist 1022.
-Der Integer Schritt ist 42.
+Der Integer Teiler ist 22.
 Der Integer Temp ist 0.
 
 
 
-Temp gleich Test mit Start.
+Temp gleich Mod mit Start, Teiler.
 
 Zeige Temp.
 

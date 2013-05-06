@@ -28,13 +28,10 @@ public class Variable {
 	private final int		varID;
 	
 	
-	private static int		varCounter;
-	
-	public Variable(final TypeEnum t, final String n) {
+	public Variable(final int id, final TypeEnum t, final String n) {
 		name = n;
 		type = t;
-		varID = varCounter;
-		varCounter += 1;
+		varID = id;
 	}
 	
 	public final String getName() {

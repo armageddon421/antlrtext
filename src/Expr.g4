@@ -26,7 +26,7 @@ funcs: funcdef	END
 	| funcs funcdef END
 	;
 	
-mainsentences: sent=sentence #MainSent;
+mainsentences: sent=sentences #MainSent;
 
 sentences:
 		sent=sentence			#SSingle
