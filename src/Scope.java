@@ -26,10 +26,18 @@ public class Scope {
 	
 	int								level;
 	
-	public Scope() {
+	boolean							isFunctionScope;
+	
+	public Scope(final boolean func) {
 		levels = new LinkedList<ArrayList<Variable>>();
 		levels.add(new ArrayList<Variable>());
 		level = 0; // 0 is root level.
+		isFunctionScope = func;
+		
+		if (func) {
+			addVariable(Variable.TypeEnum.REF, "REF");
+		}
+		
 	}
 	
 	public int ascend() {
@@ -86,38 +94,33 @@ public class Scope {
 		return getVariableInLevel(level, name) != null;
 	}
 	
-	public void push() {
-		// skip level 0 because it can never be run recursively
-		ListIterator<ArrayList<Variable>> levelIter = levels.listIterator(1);
-		
-		while (levelIter.hasNext()) {
-			ArrayList<Variable> vlist = levelIter.next();
-			ListIterator<Variable> varIter = vlist.listIterator(0);
-			while (varIter.hasNext()) {
-				Variable var = varIter.next();
-				var.load();
-				System.out.printf(";;;%s loaded.\r\n", var.getName());
-			}
-		}
-		
-		
-	}
 	
-	public void pop() {
-		// skip level 0 because it can never be run recursively
-		ListIterator<ArrayList<Variable>> levelIter = levels.listIterator(levels.size());
-		
-		while (levelIter.hasPrevious() && levelIter.previousIndex() != 0) {
-			ArrayList<Variable> vlist = levelIter.previous();
-			ListIterator<Variable> varIter = vlist.listIterator(vlist.size());
-			while (varIter.hasPrevious()) {
-				Variable var = varIter.previous();
-				var.store();
-				System.out.printf(";;;%s stored.\r\n", var.getName());
-			}
-		}
-		
-	}
+	// Not used anymore
+	/*
+	 * public void push() { // skip level 0 because it can never be run
+	 * recursively ListIterator<ArrayList<Variable>> levelIter =
+	 * levels.listIterator(1);
+	 * 
+	 * while (levelIter.hasNext()) { ArrayList<Variable> vlist =
+	 * levelIter.next(); ListIterator<Variable> varIter = vlist.listIterator(0);
+	 * while (varIter.hasNext()) { Variable var = varIter.next(); var.load();
+	 * System.out.printf(";;;%s loaded.\r\n", var.getName()); } }
+	 * 
+	 * 
+	 * }
+	 * 
+	 * public void pop() { // skip level 0 because it can never be run
+	 * recursively ListIterator<ArrayList<Variable>> levelIter =
+	 * levels.listIterator(levels.size());
+	 * 
+	 * while (levelIter.hasPrevious() && levelIter.previousIndex() != 0) {
+	 * ArrayList<Variable> vlist = levelIter.previous(); ListIterator<Variable>
+	 * varIter = vlist.listIterator(vlist.size()); while (varIter.hasPrevious())
+	 * { Variable var = varIter.previous(); var.store();
+	 * System.out.printf(";;;%s stored.\r\n", var.getName()); } }
+	 * 
+	 * }
+	 */
 	
 	
 }

@@ -18,8 +18,15 @@
 
 
 grammar Expr;
-start:	STARTLINES sentences | sentences;
+start:	STARTLINES mainsentences | mainsentences
+	|	STARTLINES funcs mainsentences | funcs mainsentences
+	;
 
+funcs: funcdef	END		
+	| funcs funcdef END
+	;
+	
+mainsentences: sent=sentence #MainSent;
 
 sentences:
 		sent=sentence			#SSingle
@@ -32,7 +39,6 @@ sentence:
 	|	'Die Float ' 	varname=NAME ' ist ' valueD=DECIMAL	END	#VardefFloat
 	
 	|	varname=NAME ' gleich' valueE=expression 	END		#SVarAssign
-	|	funcdef									END		#SFuncDef
 	|	loop									END		#SLoop
 	|	conditional								END		#SCond
 	|	input									END		#Read

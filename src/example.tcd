@@ -1,8 +1,4 @@
 
-Der Integer Start ist 1022.
-Der Integer Schritt ist 42.
-Der Integer Temp ist 0.
-
 
 Funk braucht Integer Tion.
 Keiner gleich Test mit Tion.
@@ -24,6 +20,15 @@ Ende.
 
 Zeige Ret.
 Das Ergebnis ist Integer Ret.
+
+
+
+
+
+Der Integer Start ist 1022.
+Der Integer Schritt ist 42.
+Der Integer Temp ist 0.
+
 
 
 Temp gleich Test mit Start.

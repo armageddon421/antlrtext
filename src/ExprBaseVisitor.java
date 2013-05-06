@@ -4,9 +4,11 @@ import org.antlr.v4.runtime.Token;
 import org.antlr.v4.runtime.ParserRuleContext;
 
 public class ExprBaseVisitor<T> extends AbstractParseTreeVisitor<T> implements ExprVisitor<T> {
+	@Override public T visitMoreArgs(ExprParser.MoreArgsContext ctx) { return visitChildren(ctx); }
+
 	@Override public T visitSCond(ExprParser.SCondContext ctx) { return visitChildren(ctx); }
 
-	@Override public T visitMoreArgs(ExprParser.MoreArgsContext ctx) { return visitChildren(ctx); }
+	@Override public T visitMainSent(ExprParser.MainSentContext ctx) { return visitChildren(ctx); }
 
 	@Override public T visitOutpText(ExprParser.OutpTextContext ctx) { return visitChildren(ctx); }
 
@@ -19,6 +21,8 @@ public class ExprBaseVisitor<T> extends AbstractParseTreeVisitor<T> implements E
 	@Override public T visitFDef(ExprParser.FDefContext ctx) { return visitChildren(ctx); }
 
 	@Override public T visitCompLE(ExprParser.CompLEContext ctx) { return visitChildren(ctx); }
+
+	@Override public T visitFuncs(ExprParser.FuncsContext ctx) { return visitChildren(ctx); }
 
 	@Override public T visitOutp(ExprParser.OutpContext ctx) { return visitChildren(ctx); }
 
@@ -35,8 +39,6 @@ public class ExprBaseVisitor<T> extends AbstractParseTreeVisitor<T> implements E
 	@Override public T visitArgInt(ExprParser.ArgIntContext ctx) { return visitChildren(ctx); }
 
 	@Override public T visitMultiplication(ExprParser.MultiplicationContext ctx) { return visitChildren(ctx); }
-
-	@Override public T visitSFuncDef(ExprParser.SFuncDefContext ctx) { return visitChildren(ctx); }
 
 	@Override public T visitArgFloat(ExprParser.ArgFloatContext ctx) { return visitChildren(ctx); }
 

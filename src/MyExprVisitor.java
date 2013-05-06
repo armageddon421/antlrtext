@@ -33,12 +33,15 @@ public class MyExprVisitor<TypeEnum> extends ExprBaseVisitor<Variable.TypeEnum> 
 	private String							returnhelper;
 	
 	
-	private final Scope						scope;
+	private Scope							scope;
 	private final UniqueGenerator			lblGen;
+	
+	
+	private boolean							funcHead;
 	
 	public MyExprVisitor() {
 		
-		scope = new Scope();
+		scope = new Scope(false);
 		lblGen = new UniqueGenerator("label");
 		
 	}
@@ -47,39 +50,54 @@ public class MyExprVisitor<TypeEnum> extends ExprBaseVisitor<Variable.TypeEnum> 
 	@Override
 	public Variable.TypeEnum visitArgFloat(final ExprParser.ArgFloatContext ctx) {
 		
-		System.out.println("swap"); // Rücksprungadresse nach hinten schieben!
-		
-		String vname = ctx.retname.getText();
-		scope.addVariable(Variable.TypeEnum.FLOAT, vname).store();
+		if (funcHead) {
+			System.out.print("F");
+		} else {
+			
+			String vname = ctx.retname.getText();
+			scope.addVariable(Variable.TypeEnum.FLOAT, vname);
+		}
 		return null;
 	}
 	
 	@Override
 	public Variable.TypeEnum visitArgInt(final ExprParser.ArgIntContext ctx) {
 		
-		System.out.println("swap"); // Rücksprungadresse nach hinten schieben!
-		
-		String vname = ctx.retname.getText();
-		scope.addVariable(Variable.TypeEnum.INT, vname).store();
-		
+		if (funcHead) {
+			System.out.print("I");
+		} else {
+			
+			String vname = ctx.retname.getText();
+			scope.addVariable(Variable.TypeEnum.INT, vname);
+		}
 		return null;
 	}
 	
 	@Override
 	public Variable.TypeEnum visitRetFloat(final ExprParser.RetFloatContext ctx) {
-		String vname = ctx.retname.getText();
-		System.out.printf("ldc 0.0\n");
-		scope.addVariable(Variable.TypeEnum.FLOAT, vname).store();
-		returnhelper = vname;
+		
+		if (funcHead) {
+			System.out.print("F");
+		} else {
+			String vname = ctx.retname.getText();
+			System.out.printf("ldc 0.0\n");
+			scope.addVariable(Variable.TypeEnum.FLOAT, vname).store();
+			returnhelper = vname;
+		}
 		return null;
 	}
 	
 	@Override
 	public Variable.TypeEnum visitRetInt(final ExprParser.RetIntContext ctx) {
-		String vname = ctx.retname.getText();
-		System.out.printf("ldc 0\n");
-		scope.addVariable(Variable.TypeEnum.INT, vname).store();
-		returnhelper = vname;
+		
+		if (funcHead) {
+			System.out.print("I");
+		} else {
+			String vname = ctx.retname.getText();
+			System.out.printf("ldc 0\n");
+			scope.addVariable(Variable.TypeEnum.INT, vname).store();
+			returnhelper = vname;
+		}
 		return null;
 	}
 	
@@ -226,58 +244,71 @@ public class MyExprVisitor<TypeEnum> extends ExprBaseVisitor<Variable.TypeEnum> 
 		
 		String funcname = ctx.funcname.getText();
 		
-		scope.ascend();
+		// create new variable scope for this function
+		Scope backup = scope;
+		scope = new Scope(true);
 		
+		// Header for method definition
+		System.out.printf(".method static %s(", funcname);
+		funcHead = true; // Argumenttypen für Funktionsheader generieren.
+		visit(ctx.args); // argumente
+		System.out.printf(")");
+		System.out.printf("F"); // Vorerst immer Float
+		// visit(ctx.atype); // Rückgabewert
+		System.out.println();
+		funcHead = false;
 		
-		// skip func if accidentially reached
-		String lblSkip = lblGen.pullNumber();
-		System.out.printf("goto %s\n", lblSkip);
+		System.out.println(".limit stack 200");
+		System.out.println(".limit locals 100");
 		
+		// Parameter als Variablen initialisieren
+		visit(ctx.args);
 		
-		System.out.printf("%s:\n", funcname);
-		
-		
-		visit(ctx.args); // Argumente von Stack in Variablen verfrachten.
 		
 		visit(ctx.atype); // Create Variable for return value and init with 0.
 		String retVarName = returnhelper;
 		Variable retVar = scope.getVariable(retVarName); // And store it here.
 		
+		// Funktionsrumpf
+		visit(ctx.action);
 		
-		visit(ctx.action); // Execute function code.
+		retVar.load();
+		if (retVar.getType() == Variable.TypeEnum.INT) {
+			
+			System.out.println("i2f");
+			System.out.println("freturn");
+			// System.out.println("ireturn"); //Vorerst immer Float
+		} else {
+			System.out.println("freturn");
+		}
+		System.out.println(".end method");
 		
 		
-		retVar.load(); // Throw return value on stack.
+		// restore the old scope.
+		scope = backup;
 		
-		System.out.println("swap"); // Rücksprungadresse liegt als zweites auf
-									// dem Stack
-		Variable retRef = scope.addVariable(Variable.TypeEnum.REF, funcname + "_REF");
-		retRef.store(); // Rücksprungadresse Speichern.
-		
-		System.out.printf("ret %d\n", retRef.getID());
-		
-		
-		scope.descend();
-		
-		System.out.printf("%s:\n", lblSkip);
 		return null;
 	}
 	
 	@Override
 	public Variable.TypeEnum visitFuncCall(final ExprParser.FuncCallContext ctx) {
 		String funcname = ctx.funcname.getText();
-		// scope.ascend();
 		
-		scope.push();
 		
+		// Parameter in den Stack laden
 		visit(ctx.pars);
 		
-		System.out.printf("jsr %s\n", funcname); // funktion aufrufen
-		// scope.descend();
+		// Header zusammenbauen
+		System.out.printf("invokestatic Output/%s(", funcname);
 		
-		scope.pop();
+		funcHead = true;
+		visit(ctx.pars);
+		funcHead = false;
 		
-		return null;
+		System.out.println(")F");
+		
+		// Ergebnis liegt auf dem Stack!
+		return Variable.TypeEnum.FLOAT;
 	}
 	
 	@Override
@@ -348,8 +379,16 @@ public class MyExprVisitor<TypeEnum> extends ExprBaseVisitor<Variable.TypeEnum> 
 		visit(ctx.npars);
 		
 		String par = ctx.par.getText();
-		scope.getVariable(par).load();
-		
+		Variable var = scope.getVariable(par);
+		if (funcHead) {
+			if (var.getType() == Variable.TypeEnum.INT) {
+				System.out.print("I");
+			} else {
+				System.out.print("F");
+			}
+		} else {
+			var.load();
+		}
 		
 		return null;
 	}
@@ -394,7 +433,15 @@ public class MyExprVisitor<TypeEnum> extends ExprBaseVisitor<Variable.TypeEnum> 
 		String par = ctx.par.getText();
 		// System.out.println(";" + par);
 		Variable var = scope.getVariable(par);
-		var.load();
+		if (funcHead) {
+			if (var.getType() == Variable.TypeEnum.INT) {
+				System.out.print("I");
+			} else {
+				System.out.print("F");
+			}
+		} else {
+			var.load();
+		}
 		
 		return null;
 	}
@@ -437,15 +484,6 @@ public class MyExprVisitor<TypeEnum> extends ExprBaseVisitor<Variable.TypeEnum> 
 		return visitChildren(ctx);
 	}
 	
-	@Override
-	public Variable.TypeEnum visitSFuncDef(final ExprParser.SFuncDefContext ctx) {
-		return visitChildren(ctx);
-	}
-	
-	@Override
-	public Variable.TypeEnum visitSLoop(final ExprParser.SLoopContext ctx) {
-		return visitChildren(ctx);
-	}
 	
 	@Override
 	public Variable.TypeEnum visitStart(final ExprParser.StartContext ctx) {
@@ -454,9 +492,17 @@ public class MyExprVisitor<TypeEnum> extends ExprBaseVisitor<Variable.TypeEnum> 
 		System.out.println(".class public Output");
 		System.out.println(".super java/lang/Object");
 		System.out.println();
+		
+		visitChildren(ctx);
+		
+		return null;
+	}
+	
+	@Override
+	public Variable.TypeEnum visitMainSent(final ExprParser.MainSentContext ctx) {
 		System.out.println(".method public static main([Ljava/lang/String;)V");
-		System.out.println(".limit stack 2000");
-		System.out.println(".limit locals 1000");
+		System.out.println(".limit stack 200");
+		System.out.println(".limit locals 100");
 		
 		visitChildren(ctx);
 		
@@ -465,6 +511,7 @@ public class MyExprVisitor<TypeEnum> extends ExprBaseVisitor<Variable.TypeEnum> 
 		
 		return null;
 	}
+	
 	
 	@Override
 	public Variable.TypeEnum visitSum(final ExprParser.SumContext ctx) {
@@ -575,18 +622,12 @@ public class MyExprVisitor<TypeEnum> extends ExprBaseVisitor<Variable.TypeEnum> 
 		return var.getType();
 	}
 	
-	@Override
-	public Variable.TypeEnum visitWrite(final ExprParser.WriteContext ctx) {
-		return visitChildren(ctx);
-	}
-	
 	
 	@Override
 	public Variable.TypeEnum visitSSingle(final ExprParser.SSingleContext ctx) {
 		// System.out.printf(";%s",
 		// ctx.sent.getText().trim().replaceAll("[\r\n]+", ""));
 		// System.out.printf(";%s\r\n", ctx.sent.getText().trim());
-		
 		return visitChildren(ctx);
 	}
 	

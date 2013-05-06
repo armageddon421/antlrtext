@@ -3,9 +3,11 @@ import org.antlr.v4.runtime.tree.*;
 import org.antlr.v4.runtime.Token;
 
 public interface ExprVisitor<T> extends ParseTreeVisitor<T> {
+	T visitMoreArgs(ExprParser.MoreArgsContext ctx);
+
 	T visitSCond(ExprParser.SCondContext ctx);
 
-	T visitMoreArgs(ExprParser.MoreArgsContext ctx);
+	T visitMainSent(ExprParser.MainSentContext ctx);
 
 	T visitOutpText(ExprParser.OutpTextContext ctx);
 
@@ -18,6 +20,8 @@ public interface ExprVisitor<T> extends ParseTreeVisitor<T> {
 	T visitFDef(ExprParser.FDefContext ctx);
 
 	T visitCompLE(ExprParser.CompLEContext ctx);
+
+	T visitFuncs(ExprParser.FuncsContext ctx);
 
 	T visitOutp(ExprParser.OutpContext ctx);
 
@@ -34,8 +38,6 @@ public interface ExprVisitor<T> extends ParseTreeVisitor<T> {
 	T visitArgInt(ExprParser.ArgIntContext ctx);
 
 	T visitMultiplication(ExprParser.MultiplicationContext ctx);
-
-	T visitSFuncDef(ExprParser.SFuncDefContext ctx);
 
 	T visitArgFloat(ExprParser.ArgFloatContext ctx);
 
