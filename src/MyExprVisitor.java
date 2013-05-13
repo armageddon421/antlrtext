@@ -20,14 +20,24 @@ import java.util.HashMap;
 
 public class MyExprVisitor<TypeEnum> extends ExprBaseVisitor<Variable.TypeEnum> {
 	
-	private static HashMap<String, String>	compTypes	= new HashMap<String, String>();
+	private static HashMap<String, String>	compTypes		= new HashMap<String, String>();
 	static {
-		compTypes.put("kleiner", "ge");
-		compTypes.put("kleiner oder gleich", "gt");
-		compTypes.put("entspricht", "ne");
-		compTypes.put("groesser oder gleich", "lt");
-		compTypes.put("groesser", "le");
-		compTypes.put("ungleich", "eq");
+		compTypes.put("kleiner", "lt");
+		compTypes.put("kleiner oder gleich", "le");
+		compTypes.put("entspricht", "eq");
+		compTypes.put("groesser oder gleich", "ge");
+		compTypes.put("groesser", "gt");
+		compTypes.put("ungleich", "ne");
+	}
+	
+	private static HashMap<String, String>	compTypesInv	= new HashMap<String, String>();
+	static {
+		compTypesInv.put("kleiner", "ge");
+		compTypesInv.put("kleiner oder gleich", "gt");
+		compTypesInv.put("entspricht", "ne");
+		compTypesInv.put("groesser oder gleich", "lt");
+		compTypesInv.put("groesser", "le");
+		compTypesInv.put("ungleich", "eq");
 	}
 	
 	
@@ -105,7 +115,7 @@ public class MyExprVisitor<TypeEnum> extends ExprBaseVisitor<Variable.TypeEnum> 
 	@Override
 	public Variable.TypeEnum visitCondT(final ExprParser.CondTContext ctx) {
 		String rel = ctx.rel.getText();
-		String compSuffix = compTypes.get(rel);
+		String compSuffix = compTypesInv.get(rel);
 		
 		Variable.TypeEnum ltype = visit(ctx.leftC);
 		Variable.TypeEnum rtype = visit(ctx.rightC);
@@ -145,7 +155,7 @@ public class MyExprVisitor<TypeEnum> extends ExprBaseVisitor<Variable.TypeEnum> 
 	@Override
 	public Variable.TypeEnum visitCondTE(final ExprParser.CondTEContext ctx) {
 		String rel = ctx.rel.getText();
-		String compSuffix = compTypes.get(rel);
+		String compSuffix = compTypesInv.get(rel);
 		
 		Variable.TypeEnum ltype = visit(ctx.leftC);
 		Variable.TypeEnum rtype = visit(ctx.rightC);

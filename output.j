@@ -11,14 +11,14 @@ label1:
 iload 0
 ldc 20
 swap
-if_icmpge label2
+if_icmplt label2
 ldc 30
 istore 1
 label3:
 iload 1
 ldc 28
 swap
-if_icmple label4
+if_icmpgt label4
 iload 1
 ldc 1
 isub
