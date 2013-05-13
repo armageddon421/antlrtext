@@ -111,7 +111,7 @@ conditional:
 compType:
 		'kleiner'				#CompL
 	|	'kleiner oder gleich'	#CompLE
-	|	'gleich'				#CompE
+	|	'entspricht'			#CompE
 	|	'groesser oder gleich'	#CompGE
 	|	'groesser'				#CompG
 	|	'ungleich'				#CompU

@@ -1,34 +1,25 @@
-
-
-
-Mod braucht Integer Input, Integer Tei.
-Zeige Input.
-
-Ret gleich Input minus Tei.
-
-Der Integer Limit ist 0.
-
-Wenn Ret groesser Limit.
-Ret gleich Mod mit Ret, Tei.
-Sonst.
-Ret gleich Input.
-Ende.
-
-Zeige Ret.
-Das Ergebnis ist Integer Ret.
-
-
-
-
-
-Der Integer Start ist 1022.
-Der Integer Teiler ist 22.
-Der Integer Temp ist 0.
-
-
-
-Temp gleich Mod mit Start, Teiler.
-
-Zeige Temp.
-
-
+Der Integer i ist 10.
+Solange i kleiner 20.
+	Der Integer j ist 30.
+	Solange j groesser 28.
+		j gleich j minus 1.
+		Wenn i entspricht 18.
+			Zeige j.
+		Ende.
+	Schleifenende.
+	Wenn i entspricht 15.
+		Der Integer rong ist 99.
+		Zeige rong.
+	Ende.
+	Wenn i kleiner 15.
+		Wenn i entspricht 15.
+			Zeige "rong1".
+		Ende.
+	Ende.
+	Wenn i groesser 15.
+		Wenn i entspricht 15.
+			Zeige "rong2".
+		Ende.
+	Ende.
+	i gleich i plus 1.
+Schleifenende.

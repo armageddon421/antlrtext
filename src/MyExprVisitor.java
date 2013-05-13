@@ -22,13 +22,14 @@ public class MyExprVisitor<TypeEnum> extends ExprBaseVisitor<Variable.TypeEnum> 
 	
 	private static HashMap<String, String>	compTypes	= new HashMap<String, String>();
 	static {
-		compTypes.put("kleiner", "lt");
-		compTypes.put("kleiner oder gleich", "le");
-		compTypes.put("gleich", "eq");
-		compTypes.put("groesser oder gleich", "ge");
-		compTypes.put("groesser", "gt");
-		compTypes.put("ungleich", "ne");
+		compTypes.put("kleiner", "ge");
+		compTypes.put("kleiner oder gleich", "gt");
+		compTypes.put("entspricht", "ne");
+		compTypes.put("groesser oder gleich", "lt");
+		compTypes.put("groesser", "le");
+		compTypes.put("ungleich", "eq");
 	}
+	
 	
 	private String							returnhelper;
 	
